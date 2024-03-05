@@ -1,5 +1,7 @@
+const pdf = require("html-pdf");
 const asyncHandler = require("../utils/asyncHandler");
 const ErrorResponse = require("../utils/ErrorResponse");
+const { pdfTemplate, options } = require("../utils/resume");
 const User = require("../models/User");
 
 // helper function
@@ -59,4 +61,13 @@ exports.logout = asyncHandler(async (req, res, next) => {
     httpOnly: true,
   });
   res.status(200).json({ success: true, data: {} });
+});
+
+exports.createResume = asyncHandler(async (req, res, next) => {
+  pdf.create(pdfTemplate(req.body), options).toFile("Resume.pdf", (err) => {
+    if (err) {
+      return next(new ErrorResponse("Unable to generate resume", 401));
+    } else
+      res.status(200).json({ message: "PDF created successfully."});
+  });
 });
