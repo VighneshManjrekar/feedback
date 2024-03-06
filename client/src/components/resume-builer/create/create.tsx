@@ -1,80 +1,153 @@
-import { Component } from "react";
 import Education from "./Education";
 import Project from "./Project";
 import Experience from "./Experience";
 import Skills from "./Skills";
 import PersonalDetails from "./PersonalDetails";
 import { Progress } from "@/components/ui/progress";
+import { useState } from "react";
+import {
+  PersonalDetailsForm,
+  ProjectForm,
+  SkillsForm,
+  EducationForm,
+  ExperienceForm,
+} from "../types/resume";
 
-type Props = {};
+const Create = () => {
+  const [currentStep, setCurrentStep] = useState<any>(1);
+  const [submit, setSubmit] = useState<boolean>(false);
 
-type State = {
-  currentStep: number;
-};
+  const [personalDetails, setPersonalDetails] = useState<PersonalDetailsForm>({
+    email: "",
+    fname: "",
+    lname: "",
+    website: "",
+    phone: "",
+    location: "",
+  });
+  const [educationData, setEducationData] = useState<EducationForm>({
+    cname: "",
+    areaofstudy: "",
+    typeofstudy: "",
+    datefrom: "",
+    dateto: "",
+    score: "",
+  });
 
-export default class Create extends Component<Props, State> {
-  state: State = {
-    currentStep: 1,
+  const [projectData, setProjectData] = useState<ProjectForm>({
+    pname: "",
+    link: "",
+    date: "",
+    description: "",
+  });
+
+  const [experienceData, setExperienceData] = useState<ExperienceForm>({
+    companyName: "",
+    location: "",
+    duration: "",
+    position: "",
+    description: "",
+  });
+
+  const [skillsData, setSkillsData] = useState<SkillsForm>({
+    skills: "",
+  });
+
+  const fData = {
+    personalDetails,
+    educationData,
+    projectData,
+    experienceData,
+    skillsData,
   };
 
-  nextStep = () => {
-    this.setState((prevState) => ({
-      currentStep: prevState.currentStep + 1,
-    }));
+  const nextStep = () => {
+    setCurrentStep(currentStep + 1);
   };
 
-  prevStep = () => {
-    this.setState((prevState) => ({
-      currentStep: prevState.currentStep - 1,
-    }));
+  const prevStep = () => {
+    setCurrentStep(currentStep - 1);
   };
 
-  render() {
-    const { currentStep } = this.state;
-    const totalSteps = 5;
+  const handleSubmit = () => {
+    console.log(fData);
+  };
 
-    const progress = (currentStep / totalSteps) * 100;
+  const progress = (currentStep / 5) * 100;
 
-    let formComponent;
-    switch (currentStep) {
-      case 1:
-        formComponent = <PersonalDetails nextStep={this.nextStep} />;
-        break;
-      case 2:
-        formComponent = (
-          <Education nextStep={this.nextStep} prevStep={this.prevStep} />
-        );
-        break;
-      case 3:
-        formComponent = (
-          <Project nextStep={this.nextStep} prevStep={this.prevStep} />
-        );
-        break;
-      case 4:
-        formComponent = (
-          <Experience nextStep={this.nextStep} prevStep={this.prevStep} />
-        );
-        break;
-      case 5:
-        formComponent = (
-          <Skills nextStep={this.nextStep} prevStep={this.prevStep} />
-        );
-        break;
-      default:
-        formComponent = null;
-    }
-    return (
-      <div className="container mx-auto relative font-Geist">
-        <p className="text-center">Resume</p>
-        <div className="flex flex-col justify-center items-center">
-          <div className="border border-red-200 rounded-lg p-10 my-14 w-1/2">
-            {formComponent}
-          </div>
-          <div className="w-1/2">
-            <Progress value={progress} />
-          </div>
+  let formComponent;
+  switch (currentStep) {
+    case 1:
+      formComponent = (
+        <PersonalDetails
+          formData={personalDetails}
+          updateFormData={(data: PersonalDetailsForm) =>
+            setPersonalDetails(data)
+          }
+          nextStep={nextStep}
+        />
+      );
+      break;
+    case 2:
+      formComponent = (
+        <Education
+          formData={educationData}
+          updateFormData={(data: EducationForm) => setEducationData(data)}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      );
+      break;
+    case 3:
+      formComponent = (
+        <Project
+          formData={projectData}
+          updateFormData={(data: ProjectForm) => setProjectData(data)}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      );
+      break;
+    case 4:
+      formComponent = (
+        <Experience
+          formData={experienceData}
+          updateFormData={(data: ExperienceForm) => setExperienceData(data)}
+          nextStep={nextStep}
+          prevStep={prevStep}
+        />
+      );
+      break;
+    case 5:
+      formComponent = (
+        <Skills
+          formData={skillsData}
+          updateFormData={(data: SkillsForm) => setSkillsData(data)}
+          nextStep={nextStep}
+          prevStep={prevStep}
+          submit={() => {
+            setSubmit(true);
+          }}
+        />
+      );
+      break;
+    default:
+      formComponent = null;
+  }
+  return (
+    <div className="container mx-auto relative font-Geist">
+      <p className="text-center">Resume</p>
+      <div className="flex flex-col justify-center items-center">
+        <div className="border border-red-200 rounded-lg p-10 my-14 w-1/2">
+          {formComponent}
+        </div>
+        <div className="w-1/2">
+          <Progress value={progress} />
+          {submit && <button onClick={handleSubmit}>Resume Submitted</button>}
         </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default Create;

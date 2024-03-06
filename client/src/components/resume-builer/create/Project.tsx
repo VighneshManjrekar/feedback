@@ -21,30 +21,40 @@ import {
 import { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
+import { ProjectForm } from "../types/resume";
 
 const formSchema = z.object({
-  projectName: z.string().min(2).max(200),
+  pname: z.string().min(2).max(200),
   link: z.string().optional(),
   date: z.string(),
   description: z.string().optional(),
 });
 
+type FormData = z.infer<typeof formSchema>;
+
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
+  formData: ProjectForm;
+  updateFormData: (data: FormData) => void;
 };
 
-const Project: React.FC<Props> = ({ prevStep, nextStep }) => {
+const Project: React.FC<Props> = ({
+  prevStep,
+  nextStep,
+  formData,
+  updateFormData,
+}) => {
   const [qualifications, setQualifications] = useState([{}]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: formData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    updateFormData(values);
     nextStep();
-    console.log(values);
   }
 
   const addQualification = () => {
@@ -58,7 +68,7 @@ const Project: React.FC<Props> = ({ prevStep, nextStep }) => {
           <div className="space-y-4" key={index}>
             <FormField
               control={form.control}
-              name="projectName"
+              name="pname"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Project Title</FormLabel>
