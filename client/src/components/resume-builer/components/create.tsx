@@ -13,7 +13,7 @@ import {
   ExperienceForm,
 } from "../types/resume";
 
-const Create = () => {
+const CreateResume = () => {
   const [currentStep, setCurrentStep] = useState<any>(1);
   const [submit, setSubmit] = useState<boolean>(false);
 
@@ -136,18 +136,22 @@ const Create = () => {
   }
   return (
     <div className="container mx-auto relative font-Geist">
-      <p className="text-center">Resume</p>
-      <div className="flex flex-col justify-center items-center">
-        <div className="border border-red-200 rounded-lg p-10 my-14 w-1/2">
+      <p className="text-center mt-10 mb-5">Create Resume</p>
+      <div className="flex flex-col justify-center items-center relative">
+        <div className="absolute bottom-0 w-1/2 ">
+          <Progress value={progress} />
+        </div>
+        <div className="border border-gray-300 rounded-lg p-10 w-1/2">
           {formComponent}
         </div>
-        <div className="w-1/2">
-          <Progress value={progress} />
-          {submit && <button onClick={handleSubmit}>Resume Submitted</button>}
-        </div>
       </div>
+      {submit && (
+        <button onClick={handleSubmit} className="text-center w-full my-10">
+          Resume Submitted
+        </button>
+      )}
     </div>
   );
 };
 
-export default Create;
+export default CreateResume;
