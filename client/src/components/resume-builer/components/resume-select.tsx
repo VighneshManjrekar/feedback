@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { PinBottomIcon, PlusIcon } from "@radix-ui/react-icons";
+import { Link } from "react-router-dom";
 
 type Props = {};
 
@@ -20,14 +21,16 @@ export default class ResumePage extends Component<Props, State> {
         <div className="flex justify-center my-10">
           <div className="flex flex-col md:flex-row gap-6">
             <div className="w-40 h-52 relative rounded-md bg-black hover:cursor-pointer">
-              <div className="flex justify-center pt-16">
-                <PlusIcon color="white" className="w-10 h-10" />
-              </div>
-              <div className="absolute bottom-1 bg-[#5454548e] border border-[#5a5a5a80] mx-2 rounded-xl">
-                <p className="text-sm text-white text-center py-1">
-                  Create a New Resume{" "}
-                </p>
-              </div>
+              <Link to="/resume/create">
+                <div className="flex justify-center pt-16">
+                  <PlusIcon color="white" className="w-10 h-10" />
+                </div>
+                <div className="absolute bottom-1 bg-[#5454548e] border border-[#5a5a5a80] mx-2 rounded-xl">
+                  <p className="text-sm text-white text-center py-1">
+                    Create a New Resume
+                  </p>
+                </div>
+              </Link>
             </div>
             <div className="w-40 h-52 relative rounded-md bg-black hover:cursor-pointer">
               <div className="flex justify-center pt-16">

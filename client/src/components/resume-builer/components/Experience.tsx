@@ -22,6 +22,7 @@ import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { ExperienceForm } from "../types/resume";
 
 const formSchema = z.object({
   companyName: z.string().min(2).max(100),
@@ -31,20 +32,30 @@ const formSchema = z.object({
   description: z.string().min(2),
 });
 
+type FormData = z.infer<typeof formSchema>;
+
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
+  formData: ExperienceForm;
+  updateFormData: (data: FormData) => void;
 };
 
-const Experience: React.FC<Props> = ({ prevStep, nextStep }) => {
+const Experience: React.FC<Props> = ({
+  prevStep,
+  nextStep,
+  formData,
+  updateFormData,
+}) => {
   const [qualifications, setQualifications] = useState([{}]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues:formData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    updateFormData(values);
     nextStep();
   }
 

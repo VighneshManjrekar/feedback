@@ -21,30 +21,38 @@ import {
 
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
+import { SkillsForm } from "../types/resume";
 
 const formSchema = z.object({
   skills: z.string().min(2).max(255),
-  awards: z.object({
-    title: z.string().optional(),
-    website: z.string().optional(),
-  }),
 });
+
+type FormData = z.infer<typeof formSchema>;
 
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
+  formData: SkillsForm;
+  updateFormData: (data: FormData) => void;
+  submit: (value: boolean) => void;
 };
 
-const Skills: React.FC<Props> = ({ prevStep, nextStep }) => {
+const Skills: React.FC<Props> = ({
+  prevStep,
+  formData,
+  updateFormData,
+  submit,
+}) => {
   const [qualifications, setQualifications] = useState([{}]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: formData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    updateFormData(values);
+    submit(true);
   }
 
   const addQualification = () => {
@@ -71,44 +79,6 @@ const Skills: React.FC<Props> = ({ prevStep, nextStep }) => {
               </FormItem>
             )}
           />
-
-          <Separator />
-
-          <div className="space-y-5">
-            <p className="text-sm font-medium text-slate-700 underline underline-offset-4">
-              Awards & Certification
-            </p>
-            {qualifications.map((qualification, index) => (
-              <div className="flex gap-4" key={index}>
-                <FormField
-                  control={form.control}
-                  name="awards.title"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Title</FormLabel>
-                      <FormControl className="w-[280px]">
-                        <Input placeholder="React Developer" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="awards.website"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-col">
-                      <FormLabel>Website</FormLabel>
-                      <FormControl className="w-[280px]">
-                        <Input placeholder="Coursera" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            ))}
-          </div>
         </div>
 
         <Separator />

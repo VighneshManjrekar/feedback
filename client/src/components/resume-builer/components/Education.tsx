@@ -20,32 +20,42 @@ import {
 
 import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
+import { EducationForm } from "../types/resume";
 
 const formSchema = z.object({
-  collegeName: z.string().min(2).max(200),
-  areaOfStudy: z.string().min(1),
-  dateTo: z.string(),
-  dateFrom: z.string(),
+  cname: z.string().min(2).max(200),
+  areaofstudy: z.string().min(1),
+  dateto: z.string(),
+  datefrom: z.string(),
   score: z.string().min(0).max(100),
-  typeOfStudy: z.string().min(1),
+  typeofstudy: z.string().min(1),
 });
+
+type FormData = z.infer<typeof formSchema>;
 
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
+  formData: EducationForm;
+  updateFormData: (data: FormData) => void;
 };
 
-const Education: React.FC<Props> = ({ prevStep, nextStep }) => {
+const Education: React.FC<Props> = ({
+  prevStep,
+  nextStep,
+  formData,
+  updateFormData,
+}) => {
   const [qualifications, setQualifications] = useState([{}]);
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: formData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    updateFormData(values);
     nextStep();
-    console.log(values);
   }
 
   const addQualification = () => {
@@ -59,7 +69,7 @@ const Education: React.FC<Props> = ({ prevStep, nextStep }) => {
           <div className="space-y-6" key={index}>
             <FormField
               control={form.control}
-              name="collegeName"
+              name="cname"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>College/University Name</FormLabel>
@@ -74,7 +84,7 @@ const Education: React.FC<Props> = ({ prevStep, nextStep }) => {
             <div className="flex gap-4">
               <FormField
                 control={form.control}
-                name="dateFrom"
+                name="datefrom"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Date From</FormLabel>
@@ -88,7 +98,7 @@ const Education: React.FC<Props> = ({ prevStep, nextStep }) => {
 
               <FormField
                 control={form.control}
-                name="dateTo"
+                name="dateto"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Date To</FormLabel>
@@ -117,7 +127,7 @@ const Education: React.FC<Props> = ({ prevStep, nextStep }) => {
             <div className="flex gap-4">
               <FormField
                 control={form.control}
-                name="typeOfStudy"
+                name="typeofstudy"
                 render={({ field }) => (
                   <FormItem className="flex flex-col w-1/2">
                     <FormLabel>Type Of Study</FormLabel>
@@ -131,7 +141,7 @@ const Education: React.FC<Props> = ({ prevStep, nextStep }) => {
 
               <FormField
                 control={form.control}
-                name="areaOfStudy"
+                name="areaofstudy"
                 render={({ field }) => (
                   <FormItem className="flex flex-col w-1/2">
                     <FormLabel>Area of Study</FormLabel>

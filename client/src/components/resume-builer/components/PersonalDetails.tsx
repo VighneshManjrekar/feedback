@@ -2,7 +2,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
-
 import {
   Form,
   FormControl,
@@ -13,13 +12,14 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
+import { PersonalDetailsForm } from "../types/resume";
 
 const formSchema = z.object({
   email: z.string().min(2, {
     message: "Enter valid email",
   }),
-  firstName: z.string().min(2).max(50),
-  lastName: z.string().min(2).max(50),
+  fname: z.string().min(2).max(50),
+  lname: z.string().min(2).max(50),
   website: z.string().optional(),
   phone: z.string().optional(),
   location: z.string().optional(),
@@ -27,24 +27,25 @@ const formSchema = z.object({
 
 type Props = {
   nextStep: () => void;
+  formData: PersonalDetailsForm;
+  updateFormData: (data: FormData) => void;
 };
 
-const PersonalDetails: React.FC<Props> = ({ nextStep }) => {
-  const form = useForm<z.infer<typeof formSchema>>({
+type FormData = z.infer<typeof formSchema>;
+
+const PersonalDetails: React.FC<Props> = ({
+  nextStep,
+  formData,
+  updateFormData,
+}) => {
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      email: "",
-      firstName: "",
-      lastName: "",
-      website: "",
-      phone: "",
-      location: "",
-    },
+    defaultValues: formData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    updateFormData(values);
     nextStep();
-    console.log(values);
   }
 
   return (
@@ -53,7 +54,7 @@ const PersonalDetails: React.FC<Props> = ({ nextStep }) => {
         <div className="flex gap-4">
           <FormField
             control={form.control}
-            name="firstName"
+            name="fname"
             render={({ field }) => (
               <FormItem className="w-1/2">
                 <FormLabel>First Name</FormLabel>
@@ -67,7 +68,7 @@ const PersonalDetails: React.FC<Props> = ({ nextStep }) => {
 
           <FormField
             control={form.control}
-            name="lastName"
+            name="lname"
             render={({ field }) => (
               <FormItem className="w-1/2">
                 <FormLabel>Last Name</FormLabel>

@@ -1,6 +1,6 @@
 import { TokensIcon } from "@radix-ui/react-icons";
 import { Component } from "react";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 type Props = {};
 
