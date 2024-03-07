@@ -17,3 +17,17 @@ exports.protect = asyncHandler(async (req, res, next) => {
   }
   next();
 });
+
+exports.authorization = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new ErrorResponse(
+          `Access to this route is forbidden for '${req.user.role}' role`,
+          403
+        )
+      );
+    }
+    next();
+  };
+};

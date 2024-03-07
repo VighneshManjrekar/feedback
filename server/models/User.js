@@ -2,35 +2,50 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const UserSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Please enter name"],
+const UserSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, "Please enter name"],
+    },
+    email: {
+      type: String,
+      required: [true, "Please enter an email"],
+      unique: true,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        "Please add a valid email",
+      ],
+    },
+    password: {
+      type: String,
+      required: [true, "Please enter a password"],
+      select: false,
+    },
+    profile: {
+      type: String,
+      default:
+        "https://pbs.twimg.com/profile_images/926156469577199616/Nh63c33Q_400x400.jpg",
+    },
+    resume: String,
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
+    role: {
+      type: String,
+      enum: ["seeker", "employer","admin"],
+      default: "seeker",
+    },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
-  email: {
-    type: String,
-    required: [true, "Please enter an email"],
-    unique: true,
-    match: [
-      /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-      "Please add a valid email",
-    ],
-  },
-  password: {
-    type: String,
-    required: [true, "Please enter a password"],
-    select: false,
-  },
-  profile: {
-    type: String,
-    default:
-      "https://pbs.twimg.com/profile_images/926156469577199616/Nh63c33Q_400x400.jpg",
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 UserSchema.pre("save", async function (next) {
   if (this.isModified("password")) {

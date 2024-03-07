@@ -1,4 +1,5 @@
 const pdf = require("html-pdf");
+const fs = require("fs");
 const asyncHandler = require("../utils/asyncHandler");
 const ErrorResponse = require("../utils/ErrorResponse");
 const { pdfTemplate, options } = require("../utils/resume");
@@ -20,9 +21,6 @@ const sendToken = (user, statusCode, res) => {
     .json({ success: true, token });
 };
 
-// @desc    Register a user
-// @route   POST api/v1/auth/register
-// @access  Public
 exports.register = asyncHandler(async (req, res, next) => {
   const { name, email, password } = req.body;
   const userObj = new User({
@@ -34,9 +32,6 @@ exports.register = asyncHandler(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
-// @desc    Login user
-// @route   POST api/v1/auth/login
-// @access  Public
 exports.login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -52,9 +47,6 @@ exports.login = asyncHandler(async (req, res, next) => {
   sendToken(user, 200, res);
 });
 
-// @desc    Logout user
-// @route   GET api/v1/auth/logout
-// @access  Private
 exports.logout = asyncHandler(async (req, res, next) => {
   res.cookie("token", "none", {
     expires: new Date(Date.now() + 10 * 1000),
@@ -64,10 +56,34 @@ exports.logout = asyncHandler(async (req, res, next) => {
 });
 
 exports.createResume = asyncHandler(async (req, res, next) => {
-  pdf.create(pdfTemplate(req.body), options).toFile("Resume.pdf", (err) => {
-    if (err) {
-      return next(new ErrorResponse("Unable to generate resume", 401));
-    } else
-      res.status(200).json({ message: "PDF created successfully."});
-  });
+  const path = `resume/${req.body.userId}.pdf`;
+  pdf
+    .create(pdfTemplate(req.body), options)
+    .toFile(`public/${path}`, async (err) => {
+      if (err) {
+        console.log(err);
+        return next(new ErrorResponse("Unable to generate resume", 401));
+      } else {
+        try {
+          const user = await User.findById(req.body.userId);
+          if (!user) {
+            return next(new ErrorResponse("User not found", 404));
+          }
+          user.resume = path;
+          await user.save();
+          res.status(200).json({ message: path });
+        } catch (error) {
+          next(error);
+        }
+      }
+    });
+});
+
+exports.uploadResume = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  user.resume = `resume/${req.params.id}.pdf`;
+  await user.save();
+  res
+    .status(201)
+    .json({ success: true, json: `resume/${req.params.id}.pdf` });
 });
