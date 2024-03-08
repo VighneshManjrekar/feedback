@@ -53,7 +53,7 @@ exports.applyJob = asyncHandler(async (req, res, next) => {
 
   const prevApplication = await Application.find({
     user: user._id,
-    job: req.body.job,
+    job: req.params.id,
   });
 
   if (prevApplication.length > 0)
@@ -64,7 +64,7 @@ exports.applyJob = asyncHandler(async (req, res, next) => {
 
   const application = new Application({
     user: user._id,
-    job: req.body.job,
+    job: req.params.job,
     message: response,
   });
 
