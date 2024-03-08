@@ -8,6 +8,7 @@ const ApplicationSchema = new mongoose.Schema({
     enum: ["seen", "unseen"],
     default: "unseen",
   },
+  message:String,
   result: {
     type: String,
     enum: ["accepted", "rejected", "pending"],

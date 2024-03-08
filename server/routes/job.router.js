@@ -9,6 +9,7 @@ const {
   viewApplication,
   updateJob,
   deleteJob,
+  seenApplication,
 } = require("../controllers/job.controller");
 
 const { protect, authorization } = require("../middlewares/auth");
@@ -37,5 +38,7 @@ router.get(
   authorization("employer"),
   viewApplication
 );
+
+router.get("/applications/:id/seen", seenApplication);
 
 module.exports = router;
