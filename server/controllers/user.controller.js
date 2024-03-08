@@ -22,11 +22,13 @@ const sendToken = (user, statusCode, res) => {
 };
 
 exports.register = asyncHandler(async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, role } = req.body;
+  if (role == "admin") role = "seeker";
   const userObj = new User({
     name,
     email,
     password,
+    role,
   });
   const user = await userObj.save();
   sendToken(user, 200, res);
@@ -83,7 +85,5 @@ exports.uploadResume = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.params.id);
   user.resume = `resume/${req.params.id}.pdf`;
   await user.save();
-  res
-    .status(201)
-    .json({ success: true, json: `resume/${req.params.id}.pdf` });
+  res.status(201).json({ success: true, json: `resume/${req.params.id}.pdf` });
 });

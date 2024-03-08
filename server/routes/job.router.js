@@ -6,13 +6,23 @@ const {
   getJob,
   applyJob,
   getApplications,
-  viewApplication
+  viewApplication,
+  updateJob,
+  deleteJob,
 } = require("../controllers/job.controller");
 
 const { protect, authorization } = require("../middlewares/auth");
 
-router.route("/").post(protect, authorization("employer"), postJob).get(getJobs);
-router.get("/:id", getJob);
+router
+  .route("/")
+  .post(protect, authorization("employer"), postJob)
+  .get(getJobs);
+router
+  .route("/:id")
+  .get(getJob)
+  .put(protect, authorization("employer"), updateJob)
+  .delete(protect, authorization("employer"), deleteJob);
+
 router.post("/:id/apply", protect, applyJob);
 
 router.get(
