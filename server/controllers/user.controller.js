@@ -87,3 +87,8 @@ exports.uploadResume = asyncHandler(async (req, res, next) => {
   await user.save();
   res.status(201).json({ success: true, json: `resume/${req.params.id}.pdf` });
 });
+
+exports.getUser = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  return res.status(200).json({ success: true, user });
+});
