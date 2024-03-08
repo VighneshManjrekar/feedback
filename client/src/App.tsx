@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/pages/home";
 import Login from "./components/pages/auth/login";
 import CreateResume from "./components/resume-builer/components/create";
+import PrivateRoutes from "./components/pages/auth/protect";
 
 function App() {
   return (
@@ -13,8 +14,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/resume" element={<ResumePage />} />
-          <Route path="/resume/create" element={<CreateResume />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/resume" element={<ResumePage />} />
+            <Route path="/resume/create" element={<CreateResume />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </div>
