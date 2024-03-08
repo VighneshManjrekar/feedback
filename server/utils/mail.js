@@ -51,7 +51,7 @@ exports.sendApplication = async (response, job, user, application) => {
     attachments: [
       {
         filename: `${user.name}'s-Resume.pdf`,
-        path: `http://localhost:7000/${user.resume}`,
+        path: `${process.env.SERVER_URL}/${user.resume}`,
       },
     ],
   };

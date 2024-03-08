@@ -50,6 +50,7 @@ exports.applyJob = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id);
   if (user.role != "seeker")
     return next(new ErrorResponse("Employer cannot apply to job", 400));
+  console.log(req.params.id);
 
   const prevApplication = await Application.find({
     user: user._id,
@@ -64,10 +65,11 @@ exports.applyJob = asyncHandler(async (req, res, next) => {
 
   const application = new Application({
     user: user._id,
-    job: req.params.job,
+    job: req.params.id,
     message: response,
   });
 
+  console.log(application);
   await sendApplication(response, job, req.user, application);
   await application.save();
 
