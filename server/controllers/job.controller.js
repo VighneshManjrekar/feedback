@@ -7,6 +7,7 @@ const ErrorResponse = require("../utils/ErrorResponse");
 const generateText = require("../utils/openai");
 
 exports.postJob = asyncHandler(async (req, res, next) => {
+  req.body.postedBy = req.user._id;
   const job = await Job.create(req.body);
   res.status(201).json({ success: true, job });
 });
@@ -50,8 +51,6 @@ exports.applyJob = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id);
   if (user.role != "seeker")
     return next(new ErrorResponse("Employer cannot apply to job", 400));
-  console.log(req.params.id);
-
   const prevApplication = await Application.find({
     user: user._id,
     job: req.params.id,
@@ -68,8 +67,6 @@ exports.applyJob = asyncHandler(async (req, res, next) => {
     job: req.params.id,
     message: response,
   });
-
-  console.log(application);
   await sendApplication(response, job, req.user, application);
   await application.save();
 
@@ -98,7 +95,7 @@ exports.seenApplication = asyncHandler(async (req, res, next) => {
   });
   const user = await User.findById(application.user);
   const job = await Job.findById(application.job);
-  await updateStatus(user, job);
+  await updateStatus(user, job, pixel);
   res.set("Content-Type", "image/gif");
   res.send(pixel);
 });
