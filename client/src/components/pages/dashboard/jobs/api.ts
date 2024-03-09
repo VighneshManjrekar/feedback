@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from "axios";
 
+
 export type Job = {
   _id: string;
   title: string;

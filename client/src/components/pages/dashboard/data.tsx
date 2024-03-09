@@ -25,14 +25,9 @@ export const sidelinks: SideLink[] = [
     href: "/applied",
   },
   {
-    title: "Status",
-    label: "",
-    href: "/status",
-  },
-  {
-    title: "Analysis",
-    label: "",
-    href: "/analysis",
+    title: "Post Job",
+    label: "9",
+    href: "/post-job",
   },
   {
     title: "Profile",

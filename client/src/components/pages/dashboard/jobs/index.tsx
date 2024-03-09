@@ -13,7 +13,7 @@ import { UserNav } from "../user-nav";
 
 import { formatDistanceToNow } from "date-fns";
 
-import { Layout, LayoutBody, LayoutHeader } from "../ui//layout";
+import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import getJobs, { Job } from "./api";

@@ -33,8 +33,37 @@ const router = createBrowserRouter([
             .default,
         }),
       },
+      {
+        path: "post-job",
+        lazy: async () => ({
+          Component: (await import("./components/pages/dashboard/jobs/addJobs"))
+            .default,
+        }),
+      },
+      {
+        path: "applied",
+        lazy: async () => ({
+          Component: (
+            await import("./components/pages/dashboard/applied/index")
+          ).default,
+        }),
+      },
     ],
   },
+
+  {
+    path: "/login",
+    lazy: async () => ({
+      Component: (await import("./components/pages/auth/login")).default,
+    }),
+  },
+  {
+    path: "/register",
+    lazy: async () => ({
+      Component: (await import("./components/pages/auth/register")).default,
+    }),
+  },
+
   // Other routes
   {
     path: "/resume",

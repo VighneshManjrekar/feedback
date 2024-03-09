@@ -52,7 +52,6 @@ const Education: React.FC<Props> = ({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("click");
     updateFormData(values);
     nextStep();
   }

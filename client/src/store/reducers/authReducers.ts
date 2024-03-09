@@ -1,13 +1,20 @@
-import { SET_TOKEN, REMOVE_TOKEN, SET_ID } from "../actions/authAction";
+import {
+  SET_TOKEN,
+  REMOVE_TOKEN,
+  SET_ID,
+  SET_ROLE,
+} from "../actions/authAction";
 
 interface InitialState {
   token: string | null;
   id: string | null;
+  role: string | null;
 }
 
 const initialState: InitialState = {
   token: null,
   id: null,
+  role: null,
 };
 
 const authReducer = (state = initialState, action: any) => {
@@ -16,6 +23,11 @@ const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         token: action.payload,
+      };
+    case SET_ROLE:
+      return {
+        ...state,
+        role: action.payload,
       };
     case SET_ID:
       return {
@@ -31,6 +43,5 @@ const authReducer = (state = initialState, action: any) => {
       return state;
   }
 };
-
 
 export default authReducer;
