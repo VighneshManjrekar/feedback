@@ -24,11 +24,17 @@ import { Separator } from "@/components/ui/separator";
 import { ProjectForm } from "../types/resume";
 
 const formSchema = z.object({
-  pname: z.string().min(2).max(200),
-  link: z.string().optional(),
-  date: z.string(),
-  description: z.string().optional(),
+  title1: z.string().min(2).max(200),
+  link1: z.string(),
+  projectDescription1: z.string(),
+  title2: z.string().optional(),
+  link2: z.string().optional(),
+  projectDescription2: z.string().optional(),
+  title3: z.string().optional(),
+  link3: z.string().optional(),
+  projectDescription3: z.string().optional(),
 });
+
 
 type FormData = z.infer<typeof formSchema>;
 
@@ -64,71 +70,137 @@ const Project: React.FC<Props> = ({
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        {qualifications.map((qualification, index) => (
-          <div className="space-y-4" key={index}>
-            <FormField
-              control={form.control}
-              name="pname"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Project Title</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Resume Builder" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+        <div className="flex gap-4">
+          <FormField
+            control={form.control}
+            name="title1"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Project Title</FormLabel>
+                <FormControl>
+                  <Input placeholder="Resume Builder" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="link1"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Link</FormLabel>
+                <FormControl className="w-full">
+                  <Input type="url" placeholder="www.rohannny.me" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
 
-            <div className="flex gap-4">
-              <FormField
-                control={form.control}
-                name="date"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Date</FormLabel>
-                    <FormControl>
-                      <Input type="date" placeholder="shadcn" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="link"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Link</FormLabel>
-                    <FormControl className="w-[300px]">
-                      <Input
-                        type="url"
-                        placeholder="www.rohannny.me"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
+        <FormField
+          control={form.control}
+          name="projectDescription1"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea placeholder="shadcn" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Separator />
 
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Separator />
-          </div>
-        ))}
+        <div className="flex gap-4">
+          <FormField
+            control={form.control}
+            name="title2"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Project Title</FormLabel>
+                <FormControl>
+                  <Input placeholder="Resume Builder" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="link2"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Link</FormLabel>
+                <FormControl className="w-full">
+                  <Input type="url" placeholder="www.rohannny.me" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <FormField
+          control={form.control}
+          name="projectDescription2"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea placeholder="shadcn" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Separator />
+
+        <div className="flex gap-4">
+          <FormField
+            control={form.control}
+            name="title3"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Project Title</FormLabel>
+                <FormControl>
+                  <Input placeholder="Resume Builder" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="link3"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Link</FormLabel>
+                <FormControl className="w-full">
+                  <Input type="url" placeholder="www.rohannny.me" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <FormField
+          control={form.control}
+          name="projectDescription3"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea placeholder="shadcn" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Separator />
 
         <div className="flex space-x-1">
           <PlusCircledIcon className="w-5 h-5" color="rgb(55 65 81)" />

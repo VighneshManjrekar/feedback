@@ -8,37 +8,47 @@ export type PersonalDetailsForm = {
 };
 
 export type ProjectForm = {
-  pname: string;
-  link?: string;
-  date: string;
-  description?: string;
+  title1: string;
+  link1: string;
+  projectDescription1: string;
+  title2?: string;
+  link2?: string;
+  projectDescription2?: string;
+  title3?: string;
+  link3?: string;
+  projectDescription3?: string;
 };
 
 export type SkillsForm = {
   skills: string;
+  github?: string;
+  linkedin?: string;
+  twitter?: string;
+  facebook?: string;
+  instagram?: string;
 };
 
 export type EducationForm = {
-  cname: string;
-  areaofstudy: string;
-  typeofstudy: string;
-  datefrom: string;
-  dateto: string;
-  score: string;
+  college: string;
+  fromyear1: string;
+  toyear1: string;
+  qualification1: string;
+  description1: string;
+  school: string;
+  fromyear2: string;
+  toyear2: string;
+  qualification2: string;
+  description2: string;
 };
 
 export type ExperienceForm = {
-  companyName: string;
-  location: string;
-  duration: string;
-  position: string;
-  description: string;
+  institute1: string;
+  position1: string;
+  duration1: string;
+  experienceDescription1: string;
+  institute2?: string;
+  position2?: string;
+  duration2?: string;
+  experienceDescription2?: string;
 };
 
-export type ResumeFormData = {
-  personalDetails: PersonalDetailsForm;
-  projects: ProjectForm[];
-  skills: SkillsForm;
-  education: EducationForm[];
-  experience: ExperienceForm[];
-};

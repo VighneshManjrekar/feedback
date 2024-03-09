@@ -18,10 +18,11 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 //data-fetch
 import axios, { AxiosResponse } from "axios";
-import { setToken } from "@/store/actions/authAction";
+import { setId, setToken } from "@/store/actions/authAction";
 import { useDispatch } from "react-redux";
 
 type responseData = {
+  userId: any;
   success: string;
   token: string;
 };
@@ -55,6 +56,8 @@ const Login = () => {
       );
       const responseData: responseData = response.data;
       dispatch(setToken(responseData.token));
+      dispatch(setId(responseData.userId));
+
       navigate("/resume");
     } catch (error) {
       console.log(error);

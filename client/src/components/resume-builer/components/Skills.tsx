@@ -13,18 +13,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  PlusCircledIcon,
-} from "@radix-ui/react-icons";
+import { ChevronLeftIcon } from "@radix-ui/react-icons";
 
-import { useState } from "react";
 import { Separator } from "@/components/ui/separator";
 import { SkillsForm } from "../types/resume";
 
 const formSchema = z.object({
   skills: z.string().min(2).max(255),
+  github: z.string().optional(),
+  linkedin: z.string().optional(),
+  twitter: z.string().optional(),
+  facebook: z.string().optional(),
+  instagram: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -42,9 +42,8 @@ const Skills: React.FC<Props> = ({
   formData,
   updateFormData,
   submit,
+  nextStep,
 }) => {
-  const [qualifications, setQualifications] = useState([{}]);
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: formData,
@@ -53,11 +52,8 @@ const Skills: React.FC<Props> = ({
   function onSubmit(values: z.infer<typeof formSchema>) {
     updateFormData(values);
     submit(true);
+    nextStep();
   }
-
-  const addQualification = () => {
-    setQualifications([...qualifications, {}]);
-  };
 
   return (
     <Form {...form}>
@@ -73,7 +69,7 @@ const Skills: React.FC<Props> = ({
                   <Input placeholder="React JS,HTML,CSS" {...field} />
                 </FormControl>
                 <FormDescription>
-                  mention skills/languages comma seperated
+                  mention skills/languages comma seperated (Max 6)
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -82,16 +78,80 @@ const Skills: React.FC<Props> = ({
         </div>
 
         <Separator />
-
-        <div className="flex space-x-1">
-          <PlusCircledIcon className="w-5 h-5" color="rgb(55 65 81)" />
-          <p
-            onClick={addQualification}
-            className="text-sm text-gray-700 hover:underline underline-offset-4 cursor-pointer"
-          >
-            Add Other
-          </p>
+        <div className="flex flex-row gap-4">
+          <FormField
+            control={form.control}
+            name="github"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-full">
+                <FormLabel>Github</FormLabel>
+                <FormControl>
+                  <Input placeholder="www.github.com/rohanny" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="linkedin"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-full">
+                <FormLabel>Linkedin</FormLabel>
+                <FormControl>
+                  <Input placeholder="www.github.com/rohanny" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
+
+        <div className="flex flex-row gap-4">
+          <FormField
+            control={form.control}
+            name="facebook"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-full">
+                <FormLabel>Facebook</FormLabel>
+                <FormControl>
+                  <Input placeholder="www.github.com/rohanny" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="instagram"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-full">
+                <FormLabel>Instagram</FormLabel>
+                <FormControl>
+                  <Input placeholder="www.github.com/rohanny" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="flex flex-row gap-4">
+          <FormField
+            control={form.control}
+            name="twitter"
+            render={({ field }) => (
+              <FormItem className="flex flex-col w-1/2">
+                <FormLabel>Twitter</FormLabel>
+                <FormControl>
+                  <Input placeholder="www.github.com/rohanny" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <div className="flex justify-between pt-2">
           <Button
             onClick={() => {
@@ -107,7 +167,6 @@ const Skills: React.FC<Props> = ({
             className="rounded-xl flex justify-between gap-2"
           >
             Submit
-            <ChevronRightIcon />
           </Button>
         </div>
       </form>

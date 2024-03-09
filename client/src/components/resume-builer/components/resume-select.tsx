@@ -1,20 +1,49 @@
 import { PinBottomIcon, PlusIcon } from "@radix-ui/react-icons";
+import axios from "axios";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 const ResumePage = () => {
   const navigate = useNavigate();
+  const usrId: string = useSelector((state: any) => state.auth.id);
+  const token: string = useSelector((state: any) => state.auth.token);
+
+  async function uploadResume(file: File) {
+    const formData = new FormData();
+    formData.append("resume", file);
+
+    try {
+      const response = await axios.post(
+        `http://localhost:7000/api/v1/user/${usrId}/upload-resume`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Upload successful:", response.data);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Error uploading resume:", error);
+    }
+  }
 
   const handleImport = () => {
     const input = document.createElement("input");
     input.type = "file";
     input.accept = ".pdf,.doc,.docx";
 
-    input.addEventListener("change", (event) =>  {
+    input.addEventListener("change", async (event) => {
       const file = (event.target as HTMLInputElement).files?.[0];
       if (file) {
         const extension = file.name.split(".").pop()?.toLowerCase();
         if (["pdf", "doc", "docx"].includes(extension!)) {
-          navigate("/dashboard");
+          try {
+            await uploadResume(file);
+          } catch (error) {
+            console.error("Error handling import:", error);
+          }
         } else {
           alert("Please select a PDF, DOC, or DOCX file.");
         }

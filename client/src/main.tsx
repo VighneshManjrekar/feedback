@@ -1,14 +1,23 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 import "./index.css";
-import store from "./store/store.ts";
+import { store, persistor } from "./store/store.ts";
 import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { RouterProvider } from "react-router-dom";
+import { ThemeProvider } from "./components/pages/dashboard/theme-provider.tsx";
+import { Toaster } from "./components/pages/dashboard/ui/toaster.tsx";
+import router from "./router.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <PersistGate loading={null} persistor={persistor}>
+        <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+          <RouterProvider router={router} />
+          <Toaster />
+        </ThemeProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
