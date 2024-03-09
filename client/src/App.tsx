@@ -14,10 +14,10 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route element={<PrivateRoutes />}>
+          {/* <Route element={<PrivateRoutes />}> */}
             <Route path="/resume" element={<ResumePage />} />
             <Route path="/resume/create" element={<CreateResume />} />
-          </Route>
+          {/* </Route> */}
         </Routes>
       </BrowserRouter>
     </div>
