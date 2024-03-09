@@ -7,6 +7,7 @@ const {
   logout,
   createResume,
   uploadResume,
+  getUser,
 } = require("../controllers/user.controller");
 
 const { protect } = require("../middlewares/auth");
@@ -14,6 +15,7 @@ const { protect } = require("../middlewares/auth");
 router.post("/register", register);
 router.post("/login", login);
 router.get("/logout", logout);
+router.get("/profile", protect, getUser);
 router.post("/resume", protect, createResume);
 
 const storage = multer.diskStorage({

@@ -59,7 +59,8 @@ exports.applyJob = asyncHandler(async (req, res, next) => {
   if (prevApplication.length > 0)
     return next(new ErrorResponse("Already applied for the job", 400));
 
-  const job = await Job.findById(req.body.job).populate("postedBy", "email");
+  const job = await Job.findById(req.params.id).populate("postedBy", "email");
+
   const response = await generateText(job);
 
   const application = new Application({
