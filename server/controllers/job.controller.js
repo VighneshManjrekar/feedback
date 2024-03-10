@@ -80,8 +80,13 @@ exports.getApplications = asyncHandler(async (req, res, next) => {
 });
 
 exports.viewApplication = asyncHandler(async (req, res, next) => {
-  const application = await Application.findById(req.params.id);
-  if (!application) next(new ErrorResponse("Application not found", 404));
+  const application = await Application.findById(req.params.id).populate(
+    "user job"
+  );
+  if (!application)
+    return next(new ErrorResponse("Application not found", 404));
+  if (application.user._id.toString() != req.user._id.toString())
+    return next(new ErrorResponse("Cannot view other users application", 400));
   return res.status(200).json({ success: true, application });
 });
 
@@ -99,4 +104,14 @@ exports.seenApplication = asyncHandler(async (req, res, next) => {
   await updateStatus(user, job, pixel);
   res.set("Content-Type", "image/gif");
   res.send(pixel);
+});
+
+exports.getMyApplications = asyncHandler(async (req, res, next) => {
+  const applications = await Application.find({
+    user: req.user._id,
+  }).populate("job user");
+  res.status(200).json({
+    succes: true,
+    applications,
+  });
 });
