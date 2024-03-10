@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import Nav from "./nav";
 import { cn } from "@/lib/utils";
 import { sidelinks } from "./data";
+import { DoubleArrowRightIcon } from "@radix-ui/react-icons";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   isCollapsed: boolean;
@@ -83,10 +84,7 @@ export default function Sidebar2({
               className={`flex flex-col justify-end truncate ${
                 isCollapsed ? "invisible w-0" : "visible w-auto"
               }`}
-            >
-              <span className="font-medium">Shadcn Admin</span>
-              <span className="text-xs">Vite + ShadcnUI</span>
-            </div>
+            ></div>
           </div>
 
           {/* Toggle Button in mobile */}
@@ -104,7 +102,7 @@ export default function Sidebar2({
         {/* Navigation links */}
         <Nav
           id="sidebar-menu"
-          className={`h-full flex-1 overflow-auto ${
+          className={`p-4 h-full flex-1 overflow-auto ${
             navOpened ? "max-h-screen" : "max-h-0 py-0 md:max-h-screen md:py-2"
           }`}
           closeNav={() => setNavOpened(false)}
@@ -118,7 +116,11 @@ export default function Sidebar2({
           size="icon"
           variant="outline"
           className="absolute -right-5 top-1/2 hidden rounded-full md:inline-flex"
-        ></Button>
+        >
+          <DoubleArrowRightIcon
+            className={`${isCollapsed ? "rotate-180" : ""}`}
+          />
+        </Button>
       </Layout>
     </aside>
   );

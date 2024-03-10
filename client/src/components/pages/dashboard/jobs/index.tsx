@@ -57,6 +57,16 @@ export default function Jobs() {
 
       {/* ===== Main ===== */}
       <LayoutBody className="space-y-4">
+        <div className="mb-2 flex items-center justify-between space-y-2 pl-10">
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight">
+              Apply to Jobs!
+            </h2>
+            <p className="text-muted-foreground">
+              Browse through the job postings and apply!
+            </p>
+          </div>
+        </div>
         <Tabs
           orientation="vertical"
           defaultValue="overview"

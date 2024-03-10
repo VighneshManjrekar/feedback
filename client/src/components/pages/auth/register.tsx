@@ -2,6 +2,7 @@ import { Button } from "../../ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,6 +19,13 @@ import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { setToken } from "@/store/actions/authAction";
 import { useDispatch } from "react-redux";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type ResponseType = {
   token: string;
@@ -34,6 +42,7 @@ const formSchema = z.object({
       message:
         "Password must be at least 8 characters long and contain at least one uppercase letter and one special character.",
     }),
+  role: z.string(),
 });
 
 const Register = () => {
@@ -47,6 +56,7 @@ const Register = () => {
       name: "",
       email: "",
       password: "",
+      role: "",
     },
   });
 
@@ -100,7 +110,7 @@ const Register = () => {
               <Form {...form}>
                 <form
                   onSubmit={form.handleSubmit(onSubmit)}
-                  className="space-y-5"
+                  className="space-y-3"
                 >
                   <FormField
                     control={form.control}
@@ -154,6 +164,32 @@ const Register = () => {
                             {...field}
                           />
                         </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="role"
+                    render={({ field }) => (
+                      <FormItem className="">
+                        <FormLabel>Role</FormLabel>
+                        <Select
+                          onValueChange={field.onChange}
+                          defaultValue={field.value}
+                        >
+                          <FormControl className="bg-slate-100">
+                            <SelectTrigger>
+                              <SelectValue placeholder="Select a Role" />
+                            </SelectTrigger>
+                          </FormControl>
+                          <SelectContent className="font-Geist cursor-pointer">
+                            <SelectItem value="seeker">Seeker</SelectItem>
+                            <SelectItem value="employer">Employer</SelectItem>
+                          </SelectContent>
+                        </Select>
+
                         <FormMessage />
                       </FormItem>
                     )}

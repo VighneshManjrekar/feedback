@@ -22,7 +22,7 @@ import {
 import { cn } from "@/lib/utils";
 import useCheckActiveNav from "@/hooks/use-check-active-nav";
 import { SideLink } from "./data";
-import { IconDropdown } from "react-day-picker";
+import { IconChevronDown } from "@tabler/icons-react";
 
 interface NavProps extends React.HTMLAttributes<HTMLDivElement> {
   isCollapsed: boolean;
@@ -82,6 +82,7 @@ interface NavLinkProps extends SideLink {
 
 function NavLink({
   title,
+  icon,
   label,
   href,
   closeNav,
@@ -97,11 +98,12 @@ function NavLink({
           variant: checkActiveNav(href) ? "secondary" : "ghost",
           size: "sm",
         }),
-        "h-12 justify-start text-wrap rounded-none px-6",
-        subLink && "h-10 w-full border-l border-l-slate-500 px-2"
+        "h-10 justify-start text-wrap rounded-md px-6",
+        subLink && "rounded-none h-10 w-full border-l border-l-slate-500 px-2"
       )}
       aria-current={checkActiveNav(href) ? "page" : undefined}
     >
+      <div className="mr-2">{icon}</div>
       {title}
       {label && (
         <div className="ml-2 rounded-lg bg-primary px-1 text-[0.625rem] text-primary-foreground">
@@ -112,7 +114,7 @@ function NavLink({
   );
 }
 
-function NavLinkDropdown({ title, label, sub, closeNav }: NavLinkProps) {
+function NavLinkDropdown({ title, icon, label, sub, closeNav }: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav();
 
   /* Open collapsible by default
@@ -124,9 +126,10 @@ function NavLinkDropdown({ title, label, sub, closeNav }: NavLinkProps) {
       <CollapsibleTrigger
         className={cn(
           buttonVariants({ variant: "ghost", size: "sm" }),
-          "group h-12 w-full justify-start rounded-none px-6"
+          "group h-10 w-full justify-start rounded-xl px-6"
         )}
       >
+        <div className="mr-2">{icon}</div>
         {title}
         {label && (
           <div className="ml-2 rounded-lg bg-primary px-1 text-[0.625rem] text-primary-foreground">
@@ -138,7 +141,7 @@ function NavLinkDropdown({ title, label, sub, closeNav }: NavLinkProps) {
             'ml-auto transition-all group-data-[state="open"]:-rotate-180'
           )}
         >
-          <IconDropdown />
+          <IconChevronDown stroke={1} />
         </span>
       </CollapsibleTrigger>
       <CollapsibleContent className="collapsibleDropdown" asChild>
@@ -154,7 +157,7 @@ function NavLinkDropdown({ title, label, sub, closeNav }: NavLinkProps) {
   );
 }
 
-function NavLinkIcon({ title, label, href }: NavLinkProps) {
+function NavLinkIcon({ title, icon, label, href }: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav();
   return (
     <Tooltip delayDuration={0}>
@@ -169,6 +172,7 @@ function NavLinkIcon({ title, label, href }: NavLinkProps) {
             "h-12 w-12"
           )}
         >
+          {icon}
           <span className="sr-only">{title}</span>
         </Link>
       </TooltipTrigger>
@@ -182,7 +186,7 @@ function NavLinkIcon({ title, label, href }: NavLinkProps) {
   );
 }
 
-function NavLinkIconDropdown({ title, label, sub }: NavLinkProps) {
+function NavLinkIconDropdown({ title, icon, label, sub }: NavLinkProps) {
   const { checkActiveNav } = useCheckActiveNav();
 
   /* Open collapsible by default
@@ -198,7 +202,9 @@ function NavLinkIconDropdown({ title, label, sub }: NavLinkProps) {
               variant={isChildActive ? "secondary" : "ghost"}
               size="icon"
               className="h-12 w-12"
-            ></Button>
+            >
+              {icon}
+            </Button>
           </DropdownMenuTrigger>
         </TooltipTrigger>
         <TooltipContent side="right" className="flex items-center gap-4">
@@ -206,6 +212,10 @@ function NavLinkIconDropdown({ title, label, sub }: NavLinkProps) {
           {label && (
             <span className="ml-auto text-muted-foreground">{label}</span>
           )}
+          <IconChevronDown
+            size={18}
+            className="-rotate-90 text-muted-foreground"
+          />
         </TooltipContent>
       </Tooltip>
       <DropdownMenuContent side="right" align="start" sideOffset={4}>
@@ -213,12 +223,13 @@ function NavLinkIconDropdown({ title, label, sub }: NavLinkProps) {
           {title} {label ? `(${label})` : ""}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {sub!.map(({ title, label, href }) => (
+        {sub!.map(({ title, icon, label, href }) => (
           <DropdownMenuItem key={`${title}-${href}`} asChild>
             <Link
               to={href}
               className={`${checkActiveNav(href) ? "bg-secondary" : ""}`}
             >
+              {icon} <span className="ml-2 max-w-52 text-wrap">{title}</span>
               {label && <span className="ml-auto text-xs">{label}</span>}
             </Link>
           </DropdownMenuItem>

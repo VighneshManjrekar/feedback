@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { useSelector } from "react-redux";
-import { Document, Page } from "react-pdf";
+import { Link } from "react-router-dom";
 
 const Result = () => {
   const url: string =
@@ -15,10 +15,12 @@ const Result = () => {
             <ReloadIcon />
             Restart
           </Button>
-          <Button className="gap-4">
-            Dashboard
-            <ArrowRightIcon />
-          </Button>
+          <Link to="/dashboard">
+            <Button className="gap-4">
+              Dashboard
+              <ArrowRightIcon />
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
