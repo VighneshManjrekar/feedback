@@ -31,26 +31,16 @@ const transporter = nodemailer.createTransport({
 // };
 
 exports.sendApplication = async (response, job, user, application) => {
-  const html = ` <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Email Template</title>
-</head>
-<body>
-  <p>Respected Sir/Madam,</p>
+  const html = `Respected Sir/Madam,
   <p>${response}</p>
   <p>Attaching my resume with the email. Looking forward to hear from ${job.company}. </p>
   <p>Thank you</p>
   
   <p>Best regards,</p>
-  <img src="${process.env.SERVER_URL}/api/v1/job/applications/${application._id}/seen" width="1" height="1" alt="my signature" style="display: none;">
-  <p>${user.name}<br/>${user.email}<br/></p>
-
-</body>
-</html>
-`;
+  <p>${user.name}<br/>,
+  ${user.email}<br/></p>
+  <img src="${process.env.SERVER_URL}/api/v1/job/applications/${application._id}/seen}" width="1" height"1" alt="my signature" style="display='none';"/>
+  `;
   const subject = `Application for ${job.title} at ${job.company}.`;
 
   const message = {
@@ -61,7 +51,7 @@ exports.sendApplication = async (response, job, user, application) => {
     attachments: [
       {
         filename: `${user.name}'s-Resume.pdf`,
-        path: `http://localhost:7000/${user.resume}`,
+        path: `${process.env.SERVER_URL}/${user.resume}`,
       },
     ],
   };

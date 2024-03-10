@@ -32,12 +32,7 @@ router.get(
   authorization("employer"),
   getApplications
 );
-router.get(
-  "/applications/:id",
-  protect,
-  authorization("employer"),
-  viewApplication
-);
+router.get("/applications/:id", protect, viewApplication);
 
 router.get("/applications/:id/seen", seenApplication);
 
