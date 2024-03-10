@@ -3,9 +3,50 @@ import { UserNav } from "../user-nav";
 import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 import { DataTable } from "./components/data-table";
 import { columns } from "./components/columns";
-import { tasks } from "./data/tasks";
+import { useSelector } from "react-redux";
+import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 
-export default function Tasks() {
+export default function AppliedJobs() {
+  const token = useSelector((state: any) => state.auth.token);
+  const [applications, setApplications] = useState<
+    {
+      title: string;
+      company: string;
+      status: string;
+    }[]
+  >([]);
+
+  async function getJobs() {
+    try {
+      const response: AxiosResponse<{ applications: any[] }> = await axios.get(
+        "http://localhost:7000/api/v1/job/applications",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const applications = response.data.applications;
+
+      const formattedApplications = applications.map((application: any) => ({
+        title: application.job.title,
+        company: application.job.company,
+        status: application.status,
+      }));
+
+      setApplications(formattedApplications);
+    } catch (error) {
+      console.error("Error fetching job applications:", error);
+      throw error;
+    }
+  }
+
+  useEffect(() => {
+    getJobs();
+  }, []);
+
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
@@ -16,7 +57,7 @@ export default function Tasks() {
         </div>
       </LayoutHeader>
 
-      <LayoutBody className="flex flex-col" fixedHeight>
+      <LayoutBody className="flex flex-col w-2/3" fixedHeight>
         <div className="mb-2 flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Applied Jobs!</h2>
@@ -26,7 +67,9 @@ export default function Tasks() {
           </div>
         </div>
         <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0">
-          <DataTable data={tasks} columns={columns} />
+          {applications && applications.length > 0 ? (
+            <DataTable data={applications} columns={columns} />
+          ) : null}
         </div>
       </LayoutBody>
     </Layout>
