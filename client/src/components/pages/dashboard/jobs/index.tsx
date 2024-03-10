@@ -70,7 +70,7 @@ export default function Jobs() {
                     <Card
                       key={job._id}
                       onClick={() => handleJobClick(job)}
-                      className="border hover:bg-gray-900 hover:border-sky-800 hover:cursor-pointer"
+                      className="border hover:border-gray-400 hover:bg-neutral-50 dark:hover:bg-gray-900 dark:hover:border-sky-800 hover:cursor-pointer"
                     >
                       <CardHeader>
                         <CardTitle>{job.title}</CardTitle>

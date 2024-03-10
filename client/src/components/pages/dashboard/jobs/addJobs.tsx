@@ -31,7 +31,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Job } from "./api";
 import axios, { AxiosResponse } from "axios";
 import { useSelector } from "react-redux";
-import { toast } from "../ui/use-toast";
 import { useNavigate } from "react-router-dom";
 
 export const formSchema = z.object({
