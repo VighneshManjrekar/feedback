@@ -10,9 +10,14 @@ const {
   updateJob,
   deleteJob,
   seenApplication,
+  getMyApplications,
 } = require("../controllers/job.controller");
 
 const { protect, authorization } = require("../middlewares/auth");
+
+
+// get logged in user application
+router.get("/applications", protect, getMyApplications);
 
 router
   .route("/")
@@ -26,13 +31,20 @@ router
 
 router.post("/:id/apply", protect, applyJob);
 
+// get all users applications
 router.get(
   "/:id/applications",
   protect,
   authorization("employer"),
   getApplications
 );
-router.get("/applications/:id", protect, viewApplication);
+
+// get single applications
+router.get(
+  "/applications/:id",
+  protect,
+  viewApplication
+);
 
 router.get("/applications/:id/seen", seenApplication);
 
