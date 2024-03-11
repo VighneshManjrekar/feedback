@@ -18,7 +18,6 @@ const router = createBrowserRouter([
       },
       {
         index: true,
-
         path: "dashboard",
         lazy: async () => ({
           Component: (
@@ -66,7 +65,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-
+  //auth
   {
     path: "/login",
     lazy: async () => ({

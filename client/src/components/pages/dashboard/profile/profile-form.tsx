@@ -5,6 +5,7 @@ import { Badge } from "../ui/badge";
 import axios, { AxiosResponse } from "axios";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function ProfileForm() {
   const token = useSelector((state: any) => state.auth.token);
@@ -79,7 +80,14 @@ export default function ProfileForm() {
               </div>
             </div>
 
-            <div className="flex justify-center py-5">
+            <div className="flex justify-center space-x-5 py-5">
+              <Link
+                to="/resume"
+                className="px-1 text-sm font-medium dark:text-gray-300 text-gray-700 hover:underline underline-offset-4 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
+                download
+              >
+                Create Resume
+              </Link>
               <a
                 href={`http://localhost:7000/${user.resume}`}
                 className="px-1 text-sm font-medium dark:text-gray-300 text-gray-700 hover:underline underline-offset-4 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"

@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosResponse } from "axios";
 import { setId, setRole, setToken } from "@/store/actions/authAction";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 type responseData = {
   userId: any;
@@ -38,7 +39,7 @@ const formSchema = z.object({
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const [error, setError] = useState<string>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,9 +60,10 @@ const Login = () => {
       dispatch(setToken(responseData.token));
       dispatch(setId(responseData.userId));
       dispatch(setRole(responseData.role));
+      console.log(response);
       navigate("/dashboard");
     } catch (error) {
-      console.log(error);
+      setError(error.response.data.error);
     }
   }
 
@@ -108,7 +110,7 @@ const Login = () => {
                           <FormLabel>Email</FormLabel>
                           <FormControl>
                             <Input
-                              className="bg-slate-100"
+                              className="bg-slate-100  dark:text-black"
                               type="email"
                               placeholder="obiwan@jedi.com"
                               {...field}
@@ -127,7 +129,7 @@ const Login = () => {
                           <FormLabel>Password</FormLabel>
                           <FormControl>
                             <Input
-                              className="bg-slate-100"
+                              className="bg-slate-100  dark:text-black"
                               type="password"
                               placeholder="jedimaster"
                               {...field}
@@ -141,6 +143,11 @@ const Login = () => {
                   <Button type="submit" className="w-full">
                     Submit
                   </Button>
+                  {error && (
+                    <p className="p-2 bg-black dark:bg-red-700 rounded-sm text-center text-white">
+                      {error}
+                    </p>
+                  )}
                   <p className="mt-10 text-center text-sm">
                     Need an account?{" "}
                     <span className="font-semibold hover:underline underline-offset-4 cursor-pointer">
