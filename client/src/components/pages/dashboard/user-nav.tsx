@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -12,6 +13,7 @@ import {
 } from "./ui/dropdown-menu";
 
 export function UserNav() {
+  const navigate = useNavigate();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -51,6 +53,7 @@ export function UserNav() {
         <DropdownMenuItem
           onClick={() => {
             localStorage.clear();
+            navigate("/login");
           }}
         >
           Log out
