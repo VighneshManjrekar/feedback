@@ -92,6 +92,7 @@ export default function ProfileForm() {
                 href={`http://localhost:7000/${user.resume}`}
                 className="px-1 text-sm font-medium dark:text-gray-300 text-gray-700 hover:underline underline-offset-4 hover:text-blue-400 dark:hover:text-blue-400 cursor-pointer"
                 download
+                target="blank"
               >
                 Download Resume
               </a>

@@ -1,4 +1,10 @@
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 
 import ThemeSwitch from "../theme-switch";
@@ -6,10 +12,38 @@ import { UserNav } from "../user-nav";
 
 import { Layout, LayoutBody, LayoutHeader } from "../ui//layout";
 
+import { RecentSales } from "./components/recent-sales";
 import { Overview } from "./components/overview";
-import { EyeOpenIcon } from "@radix-ui/react-icons";
+import { useSelector } from "react-redux";
+import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
 
 export default function Dashboard() {
+  const token = useSelector((state: any) => state.auth.token);
+  const [data, setData] = useState();
+
+  async function getDashboard() {
+    try {
+      const response: AxiosResponse = await axios.get(
+        "http://localhost:7000/api/v1/job/applications/stats",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setData(response.data.stats);
+      console.log(data);
+    } catch (error) {
+      console.error("Error posting job:", error);
+      throw error;
+    }
+  }
+
+  useEffect(() => {
+    getDashboard();
+  },[]);
+
   return (
     <Layout>
       {/* ===== Top Heading ===== */}
@@ -27,6 +61,8 @@ export default function Dashboard() {
           defaultValue="overview"
           className="space-y-4"
         >
+
+          
           <TabsContent value="overview" className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <Card>
@@ -34,10 +70,21 @@ export default function Dashboard() {
                   <CardTitle className="text-sm font-medium">
                     Total Jobs
                   </CardTitle>
-                  <EyeOpenIcon />
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="h-4 w-4 text-muted-foreground"
+                  >
+                    <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                  </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">$45,231.89</div>
+                  <div className="text-2xl font-bold">30</div>
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
@@ -46,7 +93,7 @@ export default function Dashboard() {
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Subscriptions
+                    Applications Seen
                   </CardTitle>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -64,28 +111,40 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">+2350</div>
+                  <div className="text-2xl font-bold">+250</div>
                   <p className="text-xs text-muted-foreground">
-                    +18.1% from last month
+                    +180.1% from last month
                   </p>
                 </CardContent>
               </Card>
               {/* <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">
-                    ATS Score
-                  </CardTitle>
+                  <CardTitle className="text-sm font-medium">Sales</CardTitle>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    className="h-4 w-4 text-muted-foreground"
+                  >
+                    <rect width="20" height="14" x="2" y="5" rx="2" />
+                    <path d="M2 10h20" />
+                  </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">
-                    <span className="text-yellow-400">68</span>/100
-                  </div>
+                  <div className="text-2xl font-bold">+12,234</div>
+                  <p className="text-xs text-muted-foreground">
+                    +19% from last month
+                  </p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle className="text-sm font-medium">
-                    Applied Jobs (last week)
+                    Active Now
                   </CardTitle>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -101,22 +160,17 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">53</div>
+                  <div className="text-2xl font-bold">+573</div>
                   <p className="text-xs text-muted-foreground">
-                    +20 since last week
+                    +201 since last hour
                   </p>
                 </CardContent>
               </Card> */}
             </div>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-7">
-              <Card className="lg:col-span-4">
+              <Card className="col-span-1 lg:col-span-4">
                 <CardHeader>
-                  <CardTitle>
-                    Overview{" "}
-                    <span className="text-sm font-thin leading-1">
-                      (No of Applications Got Seen)
-                    </span>
-                  </CardTitle>
+                  <CardTitle>Overview</CardTitle>
                 </CardHeader>
                 <CardContent className="pl-2">
                   <Overview />
@@ -124,13 +178,11 @@ export default function Dashboard() {
               </Card>
               <Card className="col-span-1 lg:col-span-3">
                 <CardHeader>
-                  <CardTitle>Recent Sales</CardTitle>
-                  <CardDescription>
-                    You made 265 sales this month.
-                  </CardDescription>
+                  <CardTitle>Recent Applications</CardTitle>
+                  <CardDescription>26 applications this month.</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <RecentSales />
+                  <RecentSales  />
                 </CardContent>
               </Card>
             </div>
