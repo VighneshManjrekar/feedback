@@ -115,3 +115,11 @@ exports.getMyApplications = asyncHandler(async (req, res, next) => {
     applications,
   });
 });
+
+exports.applicationStats = asyncHandler(async (req, res, next) => {
+  const stats = await Application.find({
+    user: req.user._id,
+  }).populate("job user", "title company salary location deadline");
+
+  res.status(200).json({ success: true, stats });
+});
