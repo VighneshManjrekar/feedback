@@ -17,7 +17,7 @@ import { TokensIcon } from "@radix-ui/react-icons";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import { setToken } from "@/store/actions/authAction";
+import { setId, setRole, setToken } from "@/store/actions/authAction";
 import { useDispatch } from "react-redux";
 import {
   Select,
@@ -45,6 +45,13 @@ const formSchema = z.object({
   role: z.string(),
 });
 
+type responseData = {
+  userId: any;
+  success: string;
+  token: string;
+  role: string;
+};
+
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -66,8 +73,11 @@ const Register = () => {
         "http://localhost:7000/api/v1/user/register",
         values
       );
-      const responseData: ResponseType = response.data;
+      const responseData: responseData = response.data;
       dispatch(setToken(responseData.token));
+      dispatch(setId(responseData.userId));
+      dispatch(setRole(responseData.role));
+
       navigate("/resume");
     } catch (error) {
       console.log(error);
