@@ -18,7 +18,7 @@ const sendToken = (user, statusCode, res) => {
   res
     .status(statusCode)
     .cookie("token", token, options)
-    .json({ success: true, token, userId: user._id , role : user.role });
+    .json({ success: true, token, userId: user._id, role: user.role });
 };
 
 exports.register = asyncHandler(async (req, res, next) => {
@@ -58,6 +58,7 @@ exports.logout = asyncHandler(async (req, res, next) => {
 });
 
 exports.createResume = asyncHandler(async (req, res, next) => {
+  req.body.userId = req.body.userId ? req.body.userId : req.user._id;
   const path = `resume/${req.body.userId}.pdf`;
   pdf
     .create(pdfTemplate(req.body), options)
