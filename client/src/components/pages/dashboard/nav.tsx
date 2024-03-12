@@ -23,6 +23,7 @@ import { cn } from "@/lib/utils";
 import useCheckActiveNav from "@/hooks/use-check-active-nav";
 import { SideLink } from "./data";
 import { IconChevronDown } from "@tabler/icons-react";
+import { useSelector } from "react-redux";
 
 interface NavProps extends React.HTMLAttributes<HTMLDivElement> {
   isCollapsed: boolean;
@@ -36,12 +37,19 @@ export default function Nav({
   className,
   closeNav,
 }: NavProps) {
-  const renderLink = ({ sub, ...rest }: SideLink) => {
+  const renderLink = ({ sub, role, ...rest }: SideLink) => {
     const key = `${rest.title}-${rest.href}`;
+    const token = useSelector((state: any) => state.auth.role);
+
+    if (role && role.toLowerCase() !== token.toLowerCase()) {
+      return null;
+    }
+
     if (isCollapsed && sub)
       return (
         <NavLinkIconDropdown
           {...rest}
+          role={role}
           sub={sub}
           key={key}
           closeNav={closeNav}
@@ -49,14 +57,22 @@ export default function Nav({
       );
 
     if (isCollapsed)
-      return <NavLinkIcon {...rest} key={key} closeNav={closeNav} />;
+      return (
+        <NavLinkIcon {...rest} role={role} key={key} closeNav={closeNav} />
+      );
 
     if (sub)
       return (
-        <NavLinkDropdown {...rest} sub={sub} key={key} closeNav={closeNav} />
+        <NavLinkDropdown
+          {...rest}
+          role={role}
+          sub={sub}
+          key={key}
+          closeNav={closeNav}
+        />
       );
 
-    return <NavLink {...rest} key={key} closeNav={closeNav} />;
+    return <NavLink {...rest} role={role} key={key} closeNav={closeNav} />;
   };
   return (
     <div

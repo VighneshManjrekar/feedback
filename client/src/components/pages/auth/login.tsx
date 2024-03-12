@@ -106,7 +106,7 @@ const Login = () => {
             <div className="w-1/2">
               <div className=" -mt-20 pb-10 space-y-2">
                 <p className="font-bold font-Geist text-2xl">Sign In</p>
-                <p className="text-sm text-zinc-400">
+                <p className="text-sm text-zinc-500">
                   Welcome back! Please enter your details
                 </p>
               </div>

@@ -5,6 +5,7 @@ import Nav from "./nav";
 import { cn } from "@/lib/utils";
 import { sidelinks } from "./data";
 import { DoubleArrowRightIcon } from "@radix-ui/react-icons";
+import { useNavigate } from "react-router-dom";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {
   isCollapsed: boolean;
@@ -17,7 +18,7 @@ export default function Sidebar2({
   setIsCollapsed,
 }: SidebarProps) {
   const [navOpened, setNavOpened] = useState(false);
-
+  const navigate = useNavigate();
   /* Make body not scrollable when navBar is opened */
   useEffect(() => {
     if (navOpened) {
@@ -46,13 +47,15 @@ export default function Sidebar2({
 
       <Layout>
         {/* Header */}
-        <LayoutHeader className="sticky top-0 justify-between px-4 py-3 shadow md:px-4">
+        <LayoutHeader className="sticky top-0 justify-between px-4 py-3 shadow md:px-3">
           <div className={`flex items-center ${!isCollapsed ? "gap-2" : ""}`}>
+            {/* LOGO */}
             <svg
+              onClick={() => navigate("/")}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 256 256"
-              className={`transition-all ${
-                isCollapsed ? "h-6 w-6" : "h-8 w-8"
+              className={`transition-all border rounded-md p-2 hover:bg-gray-200 hover:border-slate-300 cursor-pointer ${
+                isCollapsed ? "h-8 w-8" : "h-8 w-8"
               }`}
             >
               <rect width="256" height="256" fill="none"></rect>
@@ -78,13 +81,15 @@ export default function Sidebar2({
                 strokeLinejoin="round"
                 strokeWidth="16"
               ></line>
-              <span className="sr-only">Website Name</span>
+              <span className="sr-only">Feedback</span>
             </svg>
             <div
-              className={`flex flex-col justify-end truncate ${
+              className={`flex flex-col justify-end truncate text-sm ${
                 isCollapsed ? "invisible w-0" : "visible w-auto"
               }`}
-            ></div>
+            >
+              Feedback
+            </div>
           </div>
 
           {/* Toggle Button in mobile */}

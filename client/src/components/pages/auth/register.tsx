@@ -132,8 +132,8 @@ const Register = () => {
             <div className="w-1/2">
               <div className=" -mt-20 pb-4 space-y-2">
                 <p className="font-bold font-Geist text-2xl">Sign Up</p>
-                <p className="text-sm text-zinc-400">
-                  Welcome back! Please enter your details
+                <p className="text-sm text-zinc-500">
+                  Enter your details to create your account
                 </p>
               </div>
               <Form {...form}>

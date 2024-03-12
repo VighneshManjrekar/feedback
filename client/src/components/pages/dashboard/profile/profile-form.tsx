@@ -47,7 +47,7 @@ export default function ProfileForm() {
   }, []);
 
   return (
-    <div className="w-1/2 my-20 border dark:border-gray-600 border-gray-200 p-10 rounded-lg">
+    <div className="w-1/2 border dark:border-gray-600 border-gray-200 p-10 rounded-lg">
       {user && (
         <>
           <Avatar className="flex justify-center">

@@ -14,6 +14,7 @@ import {
 } from "@tabler/icons-react";
 
 export interface NavLink {
+  role: string;
   title: string;
   label?: string;
   href: string;
@@ -26,47 +27,45 @@ export interface SideLink extends NavLink {
 
 export const sidelinks: SideLink[] = [
   {
+    role: "",
     title: "Dashboard",
     label: "3",
     href: "/dashboard",
     icon: <TokensIcon />,
   },
   {
+    role: "seeker",
     title: "Jobs",
     label: "9",
     href: "/jobs",
     icon: <BackpackIcon />,
   },
   {
+    role: "seeker",
     title: "Applied",
     label: "",
     href: "/applied",
     icon: <LayersIcon />,
   },
   {
+    role: "",
     title: "Profile",
     label: "",
     href: "/profiles",
     icon: <PersonIcon />,
   },
   {
-    title: "Employer",
+    role: "employer",
+    title: "Post Jobs",
     label: "",
-    href: "",
-    icon: <IconUserShield size={18} />,
-    sub: [
-      {
-        title: "Post Jobs",
-        label: "",
-        href: "/post-job",
-        icon: <IconHexagonNumber1 size={18} />,
-      },
-      {
-        title: "View Application",
-        label: "",
-        href: "/view-application",
-        icon: <IconHexagonNumber2 size={18} />,
-      },
-    ],
+    href: "/post-job",
+    icon: <IconHexagonNumber1 size={18} />,
+  },
+  {
+    role: "employer",
+    title: "View Application",
+    label: "",
+    href: "/view-application",
+    icon: <IconHexagonNumber2 size={18} />,
   },
 ];

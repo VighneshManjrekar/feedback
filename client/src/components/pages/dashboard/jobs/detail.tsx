@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios, { AxiosResponse } from "axios";
 import { ReloadIcon } from "@radix-ui/react-icons";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DetailedJobViewProps {
   job: Job;
@@ -23,14 +24,7 @@ interface DetailedJobViewProps {
 const DetailedJobView: React.FC<DetailedJobViewProps> = ({ job }) => {
   const token = useSelector((state: any) => state.auth.token);
   const [loading, setLoading] = useState<boolean>(false);
-  const [response, setResponse] = useState<"success" | "error" | null>();
-  const [message, setMessage] = useState<string>("");
-
-  function timer() {
-    setTimeout(() => {
-      setMessage("");
-    }, 3000);
-  }
+  const { toast } = useToast();
 
   async function handleApply(id: string) {
     setLoading(true);
@@ -45,16 +39,19 @@ const DetailedJobView: React.FC<DetailedJobViewProps> = ({ job }) => {
         }
       );
       setLoading(false);
-      setResponse("success");
-      setMessage("You have successfully applied for this job");
-      timer(); // Start the timer for clearing the message
-
-      console.log(response);
+      toast({
+        className: "bg-green-500 font-Geist text-white",
+        title: "Success",
+        description: "You have successfully applied for this job",
+      });
     } catch (error) {
       setLoading(false);
-      setResponse("error");
-      setMessage(error.response.data.error);
-      timer(); // Start the timer for clearing the message
+      toast({
+        className: "font-Geist",
+        variant: "destructive",
+        title: "Error",
+        description: error.response.data.error,
+      });
       throw error;
     }
   }
@@ -109,13 +106,6 @@ const DetailedJobView: React.FC<DetailedJobViewProps> = ({ job }) => {
           </div>
         </CardContent>
       </Card>
-      <div
-        className={`text-md font-semibold text-center my-4 ${
-          response === "error" && "text-red-500"
-        } ${response === "success" && "text-green-500"}`}
-      >
-        {message}
-      </div>
     </div>
   );
 };
