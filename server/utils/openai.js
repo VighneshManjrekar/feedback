@@ -14,7 +14,7 @@ const generateText = async (job) => {
       },
     ],
     model: "gpt-3.5-turbo",
-    max_tokens: 100,
+    max_tokens: 200,
   });
   return completion.choices[0].message.content;
   // return "I am writing to express my interest in the Software Engineer position at ABC Technologies. I believe my skills and experience make me a strong candidate for the role. Looking forward to the opportunity to discuss further.";
