@@ -19,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import getJobs, { Job } from "./api";
 import { useEffect, useState } from "react";
 import DetailedJobView from "./detail";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -67,45 +68,59 @@ export default function Jobs() {
             </p>
           </div>
         </div>
-        <Tabs
-          orientation="vertical"
-          defaultValue="overview"
-          className="space-y-4"
-        >
-          <TabsContent value="overview" className="flex flex-row gap-4">
-            <div className="w-1/3 h-full py-8 px-10 rounded">
-              <ScrollArea className="h-[35em]">
-                <div className="space-y-4">
-                  {jobs.map((job) => (
-                    <Card
-                      key={job._id}
-                      onClick={() => handleJobClick(job)}
-                      className="border hover:border-gray-400 hover:bg-neutral-50 dark:hover:bg-gray-900 dark:hover:border-sky-800 hover:cursor-pointer"
-                    >
-                      <CardHeader>
-                        <CardTitle>{job.title}</CardTitle>
-                        <CardDescription>
-                          <p>{job.company}</p>
-                          <p>{job.location}</p>
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="-mt-4">
-                        <Badge variant={"secondary"}>{job.salary}</Badge>
-                      </CardContent>
-                      <CardFooter className="text-[5px]">
-                        {formatDistanceToNow(job.postedAt, { addSuffix: true })}
-                      </CardFooter>
-                    </Card>
-                  ))}
-                </div>
-              </ScrollArea>
-            </div>
+        {jobs ? (
+          <Tabs
+            orientation="vertical"
+            defaultValue="overview"
+            className="space-y-4"
+          >
+            <TabsContent
+              value="overview"
+              className="flex flex-col md:flex-row gap-4"
+            >
+              <div className="md:w-1/3 h-full px-10 rounded">
+                <ScrollArea className="h-[35em]">
+                  <div className="space-y-4">
+                    {jobs.map((job) => (
+                      <Card
+                        key={job._id}
+                        onClick={() => handleJobClick(job)}
+                        className="border hover:border-gray-400 hover:bg-neutral-50 dark:hover:bg-gray-900 dark:hover:border-sky-800 hover:cursor-pointer"
+                      >
+                        <CardHeader>
+                          <CardTitle>{job.title}</CardTitle>
+                          <CardDescription>
+                            <p>{job.company}</p>
+                            <p>{job.location}</p>
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="-mt-4">
+                          <Badge variant={"secondary"}>{job.salary}</Badge>
+                        </CardContent>
+                        <CardFooter className="text-[5px]">
+                          {formatDistanceToNow(job.postedAt, {
+                            addSuffix: true,
+                          })}
+                        </CardFooter>
+                      </Card>
+                    ))}
+                  </div>
+                </ScrollArea>
+              </div>
 
-            <div className="w-2/4 rounded-sm h-full py-8 ">
-              {selectedJob && <DetailedJobView job={selectedJob} />}
-            </div>
-          </TabsContent>
-        </Tabs>
+              <div className="w-2/4 rounded-sm h-full ">
+                <ScrollArea className="h-[500px] rounded-md">
+                  {selectedJob && <DetailedJobView job={selectedJob} />}
+                </ScrollArea>
+              </div>
+            </TabsContent>
+          </Tabs>
+        ) : (
+          <div className="my-4 flex space-x-4 items-center font-Geist">
+            <p>Loading</p>
+            <ReloadIcon className="animate-spin" />
+          </div>
+        )}
       </LayoutBody>
     </Layout>
   );

@@ -2,7 +2,6 @@ import { Button } from "../../ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -234,9 +233,6 @@ const Register = () => {
                         Show Password
                       </label>
                     </div>
-                    <span className="text-neutral-700 text-sm font-medium cursor-pointer hover:underline">
-                      Forgot Password?
-                    </span>
                   </div>
 
                   <Button type="submit" className="w-full">

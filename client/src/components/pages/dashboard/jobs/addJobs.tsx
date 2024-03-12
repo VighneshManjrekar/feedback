@@ -32,6 +32,7 @@ import { Job } from "./api";
 import axios, { AxiosResponse } from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
 
 export const formSchema = z.object({
   title: z.string().min(1).max(100),
@@ -49,6 +50,7 @@ type FormData = z.infer<typeof formSchema>;
 export default function PostJobs() {
   const token = useSelector((state: any) => state.auth.token);
   const navigate = useNavigate();
+  const { toast } = useToast();
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -75,16 +77,23 @@ export default function PostJobs() {
             Authorization: `Bearer ${token}`,
           },
         });
-        alert("Job Created");
-        navigate("/dashboard");
+      toast({
+        title: "Job Posted",
+        description: "You can check the applications in View application Tab",
+        className: "font-Geist bg-green-500 text-white rounded-xl",
+      });
+      navigate("/dashboard");
     } catch (error) {
-      console.error("Error posting job:", error);
+      toast({
+        title: "Post Failed",
+        description: error.response.data.error,
+        className: "font-Geist bg-red-500 text-white rounded-xl",
+      });
       throw error;
     }
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log("s");
     postJob(values);
   }
 

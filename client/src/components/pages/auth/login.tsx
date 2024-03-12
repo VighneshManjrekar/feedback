@@ -22,6 +22,7 @@ import { setId, setRole, setToken } from "@/store/actions/authAction";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type responseData = {
   userId: any;
@@ -40,9 +41,9 @@ const formSchema = z.object({
 const Login = () => {
   const { toast } = useToast();
 
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [error, setError] = useState<string>("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -52,7 +53,6 @@ const Login = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
 
     try {
       const response: AxiosResponse = await axios.post(
@@ -79,6 +79,10 @@ const Login = () => {
         className: "font-Geist bg-red-500 text-white rounded-xl",
       });
     }
+  }
+
+  function handleToggle() {
+    setShowPassword((prevState) => !prevState);
   }
 
   return (
@@ -143,8 +147,8 @@ const Login = () => {
                           <FormLabel>Password</FormLabel>
                           <FormControl>
                             <Input
-                              className="bg-slate-100  dark:text-black"
-                              type="text"
+                              className="bg-slate-100"
+                              type={showPassword ? "text" : "password"}
                               placeholder="jedimaster"
                               {...field}
                             />
@@ -154,14 +158,25 @@ const Login = () => {
                       )}
                     />
                   </div>
+
                   <Button type="submit" className="w-full">
                     Submit
                   </Button>
-                  {error && (
-                    <p className="p-2 bg-black dark:bg-red-700 rounded-sm text-center text-white">
-                      {error}
-                    </p>
-                  )}
+
+                  <div className="flex place-content-between">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox id="show" onCheckedChange={handleToggle} />
+                      <label
+                        htmlFor="terms"
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        Show Password
+                      </label>
+                    </div>
+                    <span className="text-neutral-700 text-sm font-medium cursor-pointer hover:underline">
+                      Forgot Password?
+                    </span>
+                  </div>
                   <p className="mt-10 text-center text-sm">
                     Need an account?{" "}
                     <span className="font-semibold hover:underline underline-offset-4 cursor-pointer">

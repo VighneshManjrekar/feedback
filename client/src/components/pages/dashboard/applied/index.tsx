@@ -6,6 +6,7 @@ import { columns } from "./components/columns";
 import { useSelector } from "react-redux";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
+import { ReloadIcon } from "@radix-ui/react-icons";
 
 export default function AppliedJobs() {
   const token = useSelector((state: any) => state.auth.token);
@@ -48,7 +49,7 @@ export default function AppliedJobs() {
   }, []);
 
   return (
-    <Layout>
+    <Layout className="md:pl-10">
       {/* ===== Top Heading ===== */}
       <LayoutHeader>
         <div className="ml-auto flex items-center space-x-4">
@@ -57,7 +58,7 @@ export default function AppliedJobs() {
         </div>
       </LayoutHeader>
 
-      <LayoutBody className="flex flex-col w-2/3" fixedHeight>
+      <LayoutBody className="flex flex-col md:w-2/3 p-4" fixedHeight>
         <div className="mb-2 flex items-center justify-between space-y-2">
           <div>
             <h2 className="text-2xl font-bold tracking-tight">Applied Jobs!</h2>
@@ -69,7 +70,12 @@ export default function AppliedJobs() {
         <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-x-12 lg:space-y-0">
           {applications && applications.length > 0 ? (
             <DataTable data={applications} columns={columns} />
-          ) : null}
+          ) : (
+            <div className="my-4 flex space-x-4 items-center font-Geist">
+              <p>Loading</p>
+              <ReloadIcon className="animate-spin" />
+            </div>
+          )}
         </div>
       </LayoutBody>
     </Layout>

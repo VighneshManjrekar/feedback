@@ -1,17 +1,10 @@
 import {
   BackpackIcon,
   LayersIcon,
-  Pencil2Icon,
   PersonIcon,
   TokensIcon,
 } from "@radix-ui/react-icons";
-import {
-  IconUserShield,
-  IconHexagonNumber1,
-  IconHexagonNumber2,
-  IconHexagonNumber3,
-  IconHexagonNumber4,
-} from "@tabler/icons-react";
+import { IconHexagonNumber1, IconHexagonNumber2 } from "@tabler/icons-react";
 
 export interface NavLink {
   role: string;
