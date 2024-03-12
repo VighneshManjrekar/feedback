@@ -132,7 +132,7 @@ export default function Dashboard() {
                 <CardContent>
                   <div className="text-2xl font-bold">{jobSeen}</div>
                   <p className="text-xs text-muted-foreground">
-                    {(jobSeen / stats.length) * 100}% Seen rate
+                    {((jobSeen / stats.length) * 100).toFixed(2)}% Seen rate
                   </p>
                 </CardContent>
               </Card>

@@ -8,6 +8,8 @@ const {
   createResume,
   uploadResume,
   getUser,
+  forgotPassword,
+  resetPassowrd,
 } = require("../controllers/user.controller");
 
 const { protect } = require("../middlewares/auth");
@@ -17,6 +19,8 @@ router.post("/login", login);
 router.get("/logout", logout);
 router.get("/profile", protect, getUser);
 router.post("/resume", protect, createResume);
+router.post("/forgot-password", forgotPassword);
+router.put("/reset-password/:resetToken", resetPassowrd);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

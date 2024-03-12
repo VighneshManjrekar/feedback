@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -34,13 +35,15 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["seeker", "employer","admin"],
+      enum: ["seeker", "employer", "admin"],
       default: "seeker",
     },
     isAdmin: {
       type: Boolean,
       default: false,
     },
+    resetPasswordToken: String,
+    resetPasswordDate: Date,
   },
   {
     timestamps: true,
@@ -62,6 +65,18 @@ UserSchema.methods.getSignToken = function () {
 
 UserSchema.methods.matchPassword = async function (passwordEntered) {
   return await bcrypt.compare(passwordEntered, this.password);
+};
+
+UserSchema.methods.createHashPassword = function () {
+  const resetToken = crypto.randomBytes(20).toString("hex");
+
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.resetPasswordDate = Date.now() + 10 * 60 * 1000;
+
+  return resetToken;
 };
 
 module.exports = mongoose.model("User", UserSchema);

@@ -1,9 +1,10 @@
 const pdf = require("html-pdf");
-const fs = require("fs");
+const crypto = require("crypto");
 const asyncHandler = require("../utils/asyncHandler");
 const ErrorResponse = require("../utils/ErrorResponse");
 const { pdfTemplate, options } = require("../utils/resume");
 const User = require("../models/User");
+const { sendForgotPassword } = require("../utils/mail");
 
 // helper function
 const sendToken = (user, statusCode, res) => {
@@ -92,4 +93,52 @@ exports.uploadResume = asyncHandler(async (req, res, next) => {
 exports.getUser = asyncHandler(async (req, res, next) => {
   const user = await User.findById(req.user._id);
   return res.status(200).json({ success: true, user });
+});
+
+exports.forgotPassword = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
+  let user = await User.findOne({ email });
+  if (!user) {
+    return next(new ErrorResponse(`No user with email ${email}`));
+  }
+  const resetToken = user.createHashPassword();
+  const resetUrl = `http://localhost:7000/api/v1/user/reset-password/${resetToken}`;
+
+  try {
+    await sendForgotPassword(user, resetUrl);
+    user = await user.save({ validateBeforeSave: true });
+  } catch (err) {
+    console.log(err);
+    user.resetPasswordToken = undefined;
+    user.resetPasswordDate = undefined;
+    await user.save();
+    return next(new ErrorResponse("Email not sent", 500));
+  }
+  res.status(200).json({ success: true, data: "Email sent" });
+});
+
+exports.resetPassowrd = asyncHandler(async (req, res, next) => {
+  const { password } = req.body;
+  const resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(req.params.resetToken)
+    .digest("hex");
+  let user = await User.findOne({
+    resetPasswordToken,
+    resetPasswordDate: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new ErrorResponse("Invalid token", 401));
+  }
+
+  user.password = password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordDate = undefined;
+
+  user = await user.save();
+  res
+    .status(200)
+    .json({ success: true, message: "Password changed successfully" });
+  // sendToken(user, 200, res);
 });
