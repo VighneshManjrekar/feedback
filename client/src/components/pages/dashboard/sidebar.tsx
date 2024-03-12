@@ -54,7 +54,7 @@ export default function Sidebar2({
               onClick={() => navigate("/")}
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 256 256"
-              className={`transition-all border rounded-md p-2 hover:bg-gray-200 hover:border-slate-300 cursor-pointer ${
+              className={`transition-all border rounded-md p-2 hover:border-slate-600 cursor-pointer ${
                 isCollapsed ? "h-8 w-8" : "h-8 w-8"
               }`}
             >

@@ -53,7 +53,6 @@ const Login = () => {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-
     try {
       const response: AxiosResponse = await axios.post(
         "http://localhost:7000/api/v1/user/login",
@@ -147,7 +146,7 @@ const Login = () => {
                           <FormLabel>Password</FormLabel>
                           <FormControl>
                             <Input
-                              className="bg-slate-100"
+                              className="bg-slate-100  dark:text-black"
                               type={showPassword ? "text" : "password"}
                               placeholder="jedimaster"
                               {...field}
@@ -173,13 +172,16 @@ const Login = () => {
                         Show Password
                       </label>
                     </div>
-                    <span className="text-neutral-700 text-sm font-medium cursor-pointer hover:underline">
+                    <span className="text-neutral-700 dark:text-gray-200 text-sm font-medium cursor-pointer hover:underline">
                       Forgot Password?
                     </span>
                   </div>
                   <p className="mt-10 text-center text-sm">
                     Need an account?{" "}
-                    <span className="font-semibold hover:underline underline-offset-4 cursor-pointer">
+                    <span
+                      className="font-semibold hover:underline underline-offset-4 cursor-pointer"
+                      onClick={() => navigate("/register")}
+                    >
                       Create an account
                     </span>
                   </p>

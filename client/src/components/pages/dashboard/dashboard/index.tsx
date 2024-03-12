@@ -27,10 +27,12 @@ type jobs = {
 
 export default function Dashboard() {
   const token = useSelector((state: any) => state.auth.token);
+  const role = useSelector((state: any) => state.auth.role);
+
   const [stats, setStats] = useState<jobs[]>([]);
   const [jobSeen, setJobSeen] = useState<number>(0);
 
-  async function getDashboard() {
+  async function getSeekerDashboard() {
     try {
       const response: AxiosResponse = await axios.get(
         "http://localhost:7000/api/v1/job/applications/stats",
@@ -61,8 +63,45 @@ export default function Dashboard() {
       throw error;
     }
   }
+
+  async function getEmpDashboard() {
+    try {
+      const response: AxiosResponse = await axios.get(
+        "http://localhost:7000/api/v1/job/applications/stats",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const responseData = response.data;
+
+      const newStats: jobs[] = responseData.stats.map((item) => ({
+        jobTitle: item.job.title,
+        jobCompany: item.job.company,
+        jobSalary: item.job.salary,
+        deadline: item.job.deadline,
+      }));
+
+      const seenCount = responseData.stats.filter(
+        (stat) => stat.status === "seen"
+      ).length;
+
+      setStats(newStats);
+      setJobSeen(seenCount);
+    } catch (error) {
+      console.error("Error getting dashboard:", error);
+      throw error;
+    }
+  }
+
   useEffect(() => {
-    getDashboard();
+    // if (role === "seeker") {
+      getSeekerDashboard();
+    // } else {
+    //   getEmpDashboard();
+    // }
   }, []);
 
   return (
