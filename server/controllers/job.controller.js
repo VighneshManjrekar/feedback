@@ -123,3 +123,12 @@ exports.applicationStats = asyncHandler(async (req, res, next) => {
 
   res.status(200).json({ success: true, stats });
 });
+
+exports.employerStats = asyncHandler(async (req, res, next) => {
+  if (req.user.role == "seeker")
+    return next(new ErrorResponse("Seeker cannot access this route", 400));
+  const stats = await Job.find({
+    postedBy: req.user._id,
+  }).populate("postedBy");
+  res.status(200).json({ success: true, stats });
+});

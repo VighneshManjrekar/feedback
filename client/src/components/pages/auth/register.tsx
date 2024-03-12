@@ -109,7 +109,7 @@ const Register = () => {
 
   return (
     <>
-      <nav className="z-10 w-full h-[10vh] absolute top-0 font-Geist px-2">
+      <nav className="z-10 w-full h-[10vh] absolute top-0 font-Geist px-2 text-black">
         <div className="p-6 flex w-full place-content-between items-center">
           <div className="flex items-center space-x-2">
             <TokensIcon

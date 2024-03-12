@@ -12,6 +12,7 @@ const {
   seenApplication,
   getMyApplications,
   applicationStats,
+  employerStats
 } = require("../controllers/job.controller");
 
 const { protect, authorization } = require("../middlewares/auth");
@@ -20,6 +21,7 @@ const { protect, authorization } = require("../middlewares/auth");
 router.get("/applications", protect, getMyApplications);
 
 router.get("/applications/stats", protect, applicationStats);
+router.get("/employer/stats", protect, employerStats);
 
 router
   .route("/")
