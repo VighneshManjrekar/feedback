@@ -102,7 +102,7 @@ const DetailedJobView: React.FC<DetailedJobViewProps> = ({ job }) => {
             </Button>
             <Link
               to={`${job.link}`}
-              className="w-1/2 p-2 rounded-md text-sm text-center bg-transparent dark:text-white font-semibold border border-gray-800 hover:bg-sky-400 hover:text-white dark:hover:border-sky-400 dark:hover:text-sky-400 hover:bg-transparent"
+              className="w-1/2 p-2 rounded-md text-sm text-center bg-transparent dark:text-white font-semibold border border-gray-800 hover:border-sky-500 hover:text-sky-400 dark:hover:border-sky-400 dark:hover:text-sky-400 hover:bg-transparent"
             >
               Go to Original Post
             </Link>

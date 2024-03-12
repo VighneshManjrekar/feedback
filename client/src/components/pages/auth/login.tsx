@@ -21,6 +21,7 @@ import axios, { AxiosResponse } from "axios";
 import { setId, setRole, setToken } from "@/store/actions/authAction";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 type responseData = {
   userId: any;
@@ -37,9 +38,11 @@ const formSchema = z.object({
 });
 
 const Login = () => {
+  const { toast } = useToast();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [error, setError] = useState<string>(null);
+  const [error, setError] = useState<string>("");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,9 +64,20 @@ const Login = () => {
       dispatch(setId(responseData.userId));
       dispatch(setRole(responseData.role));
       console.log(response);
-      navigate("/dashboard");
+      toast({
+        title: "Login Success",
+        description: "Redirecting to Dashboard",
+        className: "font-Geist bg-green-500 text-white rounded-xl",
+      });
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
     } catch (error) {
-      setError(error.response.data.error);
+      toast({
+        title: "Login Failed",
+        description: error.response.data.error,
+        className: "font-Geist bg-red-500 text-white rounded-xl",
+      });
     }
   }
 
@@ -130,7 +144,7 @@ const Login = () => {
                           <FormControl>
                             <Input
                               className="bg-slate-100  dark:text-black"
-                              type="password"
+                              type="text"
                               placeholder="jedimaster"
                               {...field}
                             />

@@ -26,6 +26,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
 
 type ResponseType = {
   token: string;
@@ -53,6 +54,8 @@ type responseData = {
 };
 
 const Register = () => {
+  const { toast } = useToast();
+
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -78,9 +81,25 @@ const Register = () => {
       dispatch(setId(responseData.userId));
       dispatch(setRole(responseData.role));
 
-      navigate("/resume");
+      toast({
+        title: "Resigtration Success",
+        description: "Redirecting",
+        className: "font-Geist bg-green-500 text-white rounded-xl",
+      });
+
+      setTimeout(() => {
+        if (responseData.role === "seeker") {
+          navigate("/resume");
+        } else {
+          navigate("/dashboard");
+        }
+      }, 1000);
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "Resigtration Failed",
+        description: error.response.data.error,
+        className: "font-Geist bg-red-500 text-white rounded-xl",
+      });
     }
   }
 

@@ -6,8 +6,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "./components/pages/dashboard/theme-provider.tsx";
-import { Toaster } from "./components/pages/dashboard/ui/toaster.tsx";
 import router from "./router.tsx";
+import { Toaster } from "./components/ui/toaster.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

@@ -18,9 +18,17 @@ import { useSelector } from "react-redux";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 
+type jobs = {
+  jobTitle: string;
+  jobCompany: string;
+  jobSalary: string;
+  deadline: string;
+};
+
 export default function Dashboard() {
   const token = useSelector((state: any) => state.auth.token);
-  const [data, setData] = useState();
+  const [stats, setStats] = useState<jobs[]>([]);
+  const [jobSeen, setJobSeen] = useState<number>(0);
 
   async function getDashboard() {
     try {
@@ -32,17 +40,30 @@ export default function Dashboard() {
           },
         }
       );
-      setData(response.data.stats);
-      console.log(data);
+
+      const responseData = response.data;
+
+      const newStats: jobs[] = responseData.stats.map((item) => ({
+        jobTitle: item.job.title,
+        jobCompany: item.job.company,
+        jobSalary: item.job.salary,
+        deadline: item.job.deadline,
+      }));
+
+      const seenCount = responseData.stats.filter(
+        (stat) => stat.status === "seen"
+      ).length;
+
+      setStats(newStats);
+      setJobSeen(seenCount);
     } catch (error) {
-      console.error("Error posting job:", error);
+      console.error("Error getting dashboard:", error);
       throw error;
     }
   }
-
   useEffect(() => {
     getDashboard();
-  },[]);
+  }, []);
 
   return (
     <Layout>
@@ -61,8 +82,6 @@ export default function Dashboard() {
           defaultValue="overview"
           className="space-y-4"
         >
-
-          
           <TabsContent value="overview" className="space-y-4">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               <Card>
@@ -84,7 +103,7 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">30</div>
+                  <div className="text-2xl font-bold">{stats.length}</div>
                   <p className="text-xs text-muted-foreground">
                     +20.1% from last month
                   </p>
@@ -111,9 +130,9 @@ export default function Dashboard() {
                   </svg>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold">+250</div>
+                  <div className="text-2xl font-bold">{jobSeen}</div>
                   <p className="text-xs text-muted-foreground">
-                    +180.1% from last month
+                    {(jobSeen / stats.length) * 100}% Seen rate
                   </p>
                 </CardContent>
               </Card>
@@ -179,10 +198,12 @@ export default function Dashboard() {
               <Card className="col-span-1 lg:col-span-3">
                 <CardHeader>
                   <CardTitle>Recent Applications</CardTitle>
-                  <CardDescription>26 applications this month.</CardDescription>
+                  <CardDescription>
+                    {stats.length} applications this month.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <RecentSales  />
+                  {stats && <RecentSales data={stats} />}
                 </CardContent>
               </Card>
             </div>
