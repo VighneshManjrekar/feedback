@@ -107,6 +107,7 @@ exports.seenApplication = asyncHandler(async (req, res, next) => {
 });
 
 exports.getMyApplications = asyncHandler(async (req, res, next) => {
+  const stat = [];
   const jobs = await Job.find({ postedBy: req.user._id });
   const jobId = jobs.map((job) => job._id);
   const applications = await Application.find({
@@ -151,16 +152,15 @@ exports.seekerStats = asyncHandler(async (req, res, next) => {
 exports.applicationStats = asyncHandler(async (req, res, next) => {
   const stats = await Application.find({
     user: req.user._id,
-  }).populate("job user", "title company salary location deadline");
-
+  }).populate("job user");
+  // console.log(stats)
   res.status(200).json({ success: true, stats });
 });
 
 exports.employerStats = asyncHandler(async (req, res, next) => {
   if (req.user.role == "seeker")
     return next(new ErrorResponse("Seeker cannot access this route", 400));
-  const stats = await Job.find({
-    postedBy: req.user._id,
-  }).populate("postedBy");
-  res.status(200).json({ success: true, stats });
+  const jobs = await Job.find({}).populate("postedBy");
+  const applications = await Application.find({}).populate("user job");
+  res.status(200).json({ success: true, jobs, applications });
 });
