@@ -21,13 +21,14 @@ export default function AppliedJobs() {
   async function getJobs() {
     try {
       const response: AxiosResponse<{ applications: any[] }> = await axios.get(
-        "http://localhost:7000/api/v1/job/applications",
+        "http://localhost:7000/api/v1/job/applications/seeker/stat",
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+      console.log(response.data)
 
       const applications = response.data.applications;
 

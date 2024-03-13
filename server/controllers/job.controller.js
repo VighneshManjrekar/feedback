@@ -107,11 +107,12 @@ exports.seenApplication = asyncHandler(async (req, res, next) => {
 });
 
 exports.getMyApplications = asyncHandler(async (req, res, next) => {
+  const jobs = await Job.find({ postedBy: req.user._id });
+  const jobId = jobs.map((job) => job._id);
   const applications = await Application.find({
-    job: { $in: await Job.find({ postedBy: req.user._id }).distinct("_id") },
+    job: { $in: jobId },
   }).populate("job user", "title company name email salary createdAt");
 
-  let stat = [];
   applications.forEach((app) => {
     const { title, company, salary, _id } = app.job;
     const jobDetails = {
@@ -128,12 +129,23 @@ exports.getMyApplications = asyncHandler(async (req, res, next) => {
           email: a.user.email,
         })),
     };
-    stat.push(jobDetails);
+    const isExist = stat.find((s) => s.jobId == _id);
+    if (!isExist) stat.push(jobDetails);
   });
+
   res.status(200).json({
+    role: req.user.role,
     succes: true,
     stat,
   });
+});
+
+exports.seekerStats = asyncHandler(async (req, res, next) => {
+  const applications = await Application.find({ user: req.user._id }).populate(
+    "job user",
+    "title company name email salary createdAt"
+  );
+  res.status(200).json({ success: true, applications });
 });
 
 exports.applicationStats = asyncHandler(async (req, res, next) => {
