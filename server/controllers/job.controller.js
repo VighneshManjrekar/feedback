@@ -108,10 +108,9 @@ exports.seenApplication = asyncHandler(async (req, res, next) => {
 
 exports.getMyApplications = asyncHandler(async (req, res, next) => {
   const stat = [];
-  const jobs = await Job.find({ postedBy: req.user._id });
-  const jobId = jobs.map((job) => job._id);
+  // const jobs = await Job.find({ postedBy: req.user._id });
+  // const jobId = jobs.map((job) => job._id);
   const applications = await Application.find({
-    job: { $in: jobId },
   }).populate("job user", "title company name email salary createdAt");
 
   applications.forEach((app) => {
