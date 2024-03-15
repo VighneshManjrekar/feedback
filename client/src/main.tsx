@@ -5,7 +5,7 @@ import { store, persistor } from "./store/store.ts";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { RouterProvider } from "react-router-dom";
-import { ThemeProvider } from "./components/pages/dashboard/theme-provider.tsx";
+import { ThemeProvider } from "./pages/dashboard/theme-provider.tsx";
 import router from "./router.tsx";
 import { Toaster } from "./components/ui/toaster.tsx";
 

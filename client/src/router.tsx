@@ -5,14 +5,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     lazy: async () => {
-      const AppShell = await import("./components/pages/dashboard/layout");
+      const AppShell = await import("./pages/dashboard/sidebar/layout");
       return { Component: AppShell.default };
     },
     children: [
       {
         lazy: async () => ({
           Component: (
-            await import("./components/pages/dashboard/dashboard/index")
+            await import("./pages/dashboard/stats/index")
           ).default,
         }),
       },
@@ -21,21 +21,21 @@ const router = createBrowserRouter([
         path: "dashboard",
         lazy: async () => ({
           Component: (
-            await import("./components/pages/dashboard/dashboard/index")
+            await import("./pages/dashboard/stats/index")
           ).default,
         }),
       },
       {
         path: "jobs",
         lazy: async () => ({
-          Component: (await import("./components/pages/dashboard/jobs/index"))
+          Component: (await import("./pages/dashboard/jobs/index"))
             .default,
         }),
       },
       {
         path: "post-job",
         lazy: async () => ({
-          Component: (await import("./components/pages/dashboard/jobs/addJobs"))
+          Component: (await import("./pages/dashboard/jobs/addJobs"))
             .default,
         }),
       },
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         path: "applied",
         lazy: async () => ({
           Component: (
-            await import("./components/pages/dashboard/applied/index")
+            await import("./pages/dashboard/applied/index")
           ).default,
         }),
       },
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
         path: "profiles",
         lazy: async () => ({
           Component: (
-            await import("./components/pages/dashboard/profile/index")
+            await import("./pages/dashboard/profile/index")
           ).default,
         }),
       },
@@ -59,7 +59,7 @@ const router = createBrowserRouter([
         path: "view-application",
         lazy: async () => ({
           Component: (
-            await import("./components/pages/dashboard/view-application/index")
+            await import("./pages/dashboard/view-application/index")
           ).default,
         }),
       },
@@ -69,13 +69,13 @@ const router = createBrowserRouter([
   {
     path: "/login",
     lazy: async () => ({
-      Component: (await import("./components/pages/auth/login")).default,
+      Component: (await import("./pages/auth/login")).default,
     }),
   },
   {
     path: "/register",
     lazy: async () => ({
-      Component: (await import("./components/pages/auth/register")).default,
+      Component: (await import("./pages/auth/register")).default,
     }),
   },
 
@@ -84,21 +84,21 @@ const router = createBrowserRouter([
     path: "/resume",
     lazy: async () => ({
       Component: (
-        await import("./components/resume-builer/components/resume-select")
+        await import("./pages/resume-builer/components/resume-select")
       ).default,
     }),
   },
   {
     path: "/resume/create",
     lazy: async () => ({
-      Component: (await import("./components/resume-builer/components/create"))
+      Component: (await import("./pages/resume-builer/components/create"))
         .default,
     }),
   },
   {
     path: "/resume/result",
     lazy: async () => ({
-      Component: (await import("./components/resume-builer/components/Result"))
+      Component: (await import("./pages/resume-builer/components/Result"))
         .default,
     }),
   },
