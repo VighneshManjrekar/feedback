@@ -7,7 +7,7 @@ export default function Dashboard() {
 
   if (role === "seeker") {
     return <SeekerDashboard />;
-  } else if (role === "employer") {
+  } else {
     return <EmpDashboard />;
   }
 }
