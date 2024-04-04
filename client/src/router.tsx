@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: "post-job",
         lazy: async () => ({
-          Component: (await import("./pages/dashboard/jobs/addJobs"))
+          Component: (await import("./pages/dashboard/add-jobs/addJobs"))
             .default,
         }),
       },

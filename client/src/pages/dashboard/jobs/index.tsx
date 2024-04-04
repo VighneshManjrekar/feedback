@@ -22,9 +22,7 @@ import { ReloadIcon } from "@radix-ui/react-icons";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
-  const [selectedJob, setSelectedJob] = useState<Job | null>(
-    jobs.length > 0 ? jobs[0] : null
-  );
+  const [selectedJob, setSelectedJob] = useState<Job | null>();
 
   const handleJobClick = (job: Job) => {
     setSelectedJob(job);
@@ -68,7 +66,7 @@ export default function Jobs() {
           </div>
         </div>
         {jobs ? (
-          <>
+          <div className="flex">
             <div className="md:w-1/3 h-full px-10 rounded">
               <ScrollArea className="h-[35em]">
                 <div className="space-y-4">
@@ -104,7 +102,7 @@ export default function Jobs() {
                 {selectedJob && <DetailedJobView job={selectedJob} />}
               </ScrollArea>
             </div>
-          </>
+          </div>
         ) : (
           <div className="my-4 flex space-x-4 items-center font-Geist">
             <p>Loading</p>

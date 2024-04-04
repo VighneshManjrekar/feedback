@@ -60,7 +60,7 @@ const DetailedJobView: React.FC<DetailedJobViewProps> = ({ job }) => {
 
   return (
     <div>
-      <Card className="hover:cursor-pointer border border-sky-100 dark:border-gray-800">
+      <Card className=" border border-sky-100 dark:border-gray-800">
         <CardHeader>
           <CardTitle>{job.title}</CardTitle>
           <CardDescription>

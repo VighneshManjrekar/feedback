@@ -101,7 +101,7 @@ const Register = () => {
         <div className="p-6 flex w-full place-content-between items-center">
           <div className="flex items-center space-x-2">
             <TokensIcon
-              className="w-8 h-8 bg-green-500 rounded-sm p-1 lg:block"
+              className="w-8 h-8 bg-teal-500 rounded-sm p-1 lg:block"
               color="white"
             />
             <span className=" text-white text-lg font-semibold">Feedback</span>
@@ -224,7 +224,7 @@ const Register = () => {
                     )}
                   />
 
-                  <div className="flex place-content-between">
+                  <div className="flex place-content-between py-2">
                     <div className="flex items-center space-x-2">
                       <Checkbox id="show" onCheckedChange={handleToggle} />
                       <label
@@ -232,7 +232,7 @@ const Register = () => {
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Show Password
-                      </label>
+                      </label> 
                     </div>
                   </div>
 

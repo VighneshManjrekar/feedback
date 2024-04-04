@@ -120,9 +120,10 @@ export default function Sidebar2({
           onClick={() => setIsCollapsed((prev) => !prev)}
           size="icon"
           variant="outline"
-          className="absolute -right-5 top-1/2 hidden rounded-full md:inline-flex"
+          className="absolute -right-5 top-1/2 hidden rounded-full md:inline-flex bg-primary hover:bg-teal-500"
         >
           <DoubleArrowRightIcon
+            color="white"
             className={`${isCollapsed ? "rotate-180" : ""}`}
           />
         </Button>

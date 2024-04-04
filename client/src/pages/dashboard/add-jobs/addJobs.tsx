@@ -1,9 +1,7 @@
-import { Tabs, TabsContent } from "../ui/tabs";
-
 import ThemeSwitch from "../theme-switch";
 import { UserNav } from "../sidebar/user-nav";
 
-import { Layout, LayoutBody, LayoutHeader } from "../ui//layout";
+import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -28,7 +26,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
-import { Job } from "./api";
+import { Job } from "../jobs/api";
 import axios, { AxiosResponse } from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";

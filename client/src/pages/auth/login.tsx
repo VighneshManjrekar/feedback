@@ -1,5 +1,5 @@
 //ui
-import { Button } from "../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -82,10 +82,10 @@ const Login = () => {
         <div className="p-6 flex w-full place-content-between items-center">
           <div className="flex items-center space-x-2">
             <TokensIcon
-              className="w-8 h-8 bg-green-500 rounded-sm p-1 lg:block"
+              className="w-8 h-8 bg-teal-500 rounded-sm p-1 lg:block"
               color="white"
             />
-            <span className=" text-white text-lg font-semibold">Feedback</span>
+            <span className="text-white text-lg font-semibold">Feedback</span>
           </div>
           <Link to={"/register"}>
             <Button className="rounded-lg">Register</Button>
@@ -94,7 +94,7 @@ const Login = () => {
       </nav>
       <div className="h-screen relative font-Geist">
         <div className="grid lg:grid-cols-2 h-full">
-        <div className="h-screen hidden lg:block relative border-r border-green-100">
+          <div className="h-screen hidden lg:block relative border-r border-green-100">
             <img
               className="h-screen"
               src={background}

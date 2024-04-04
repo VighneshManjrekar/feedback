@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useSelector } from "react-redux";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 export function UserNav() {
   const navigate = useNavigate();
@@ -51,6 +51,7 @@ export function UserNav() {
   useEffect(() => {
     getUser();
   }, []);
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -72,15 +73,15 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={()=>navigate("/dashboard")}>
+          <DropdownMenuItem onClick={() => navigate("/dashboard")}>
             Dashboard
             <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=>navigate("/applied")}>
+          <DropdownMenuItem onClick={() => navigate("/applied")}>
             Applied Jobs
             <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={()=>navigate("/profiles")}>
+          <DropdownMenuItem onClick={() => navigate("/profiles")}>
             Profile
             <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
           </DropdownMenuItem>
@@ -90,6 +91,7 @@ export function UserNav() {
         <DropdownMenuItem
           onClick={() => {
             localStorage.clear();
+            sessionStorage.clear();
             navigate("/login");
           }}
         >
