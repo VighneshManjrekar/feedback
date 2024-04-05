@@ -20,6 +20,8 @@ module.exports = {
       fontFamily: {
         Raleway: ["Raleway", "sans-serif"],
         Geist: ["Geist", "sans-serif"],
+        Gilroy: ["Gilroy", "sans-serif"],
+        Aeonik: ["Aeonik", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

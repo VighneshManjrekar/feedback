@@ -3,11 +3,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @font-face {
   font-family: "Geist";
   src: url("./assets/font/GeistVariableVF.ttf") format("truetype");
 }
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("./assets/font/Gilroy-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("./assets/font/AeonikTRIAL-Regular.otf") format("truetype");
+}
+
 
 
 @layer base {
@@ -57,11 +68,12 @@
   }
 }
 
- 
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }

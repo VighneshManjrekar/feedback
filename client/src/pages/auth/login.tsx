@@ -24,6 +24,7 @@ import { login } from "./api";
 import { useDispatch } from "react-redux";
 import { responseData } from "@/types/auth";
 import { setId, setRole, setToken } from "@/store/actions/authAction";
+import logo from "/logo.svg";
 
 import background from "../../assets/frame.png";
 
@@ -81,10 +82,9 @@ const Login = () => {
       <nav className="z-10 w-full h-[10vh] absolute top-0 font-Geist px-2">
         <div className="p-6 flex w-full place-content-between items-center">
           <div className="flex items-center space-x-2">
-            <TokensIcon
-              className="w-8 h-8 bg-teal-500 rounded-sm p-1 lg:block"
-              color="white"
-            />
+            <div className="p-3 w-10 h-10 rounded-sm border border-[#898989] bg-clip-padding bg-opacity-50 backdrop-filter backdrop-blur-sm">
+              <img src={logo} />
+            </div>
             <span className="text-white text-lg font-semibold">Feedback</span>
           </div>
           <Link to={"/register"}>
