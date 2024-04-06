@@ -22,6 +22,7 @@ module.exports = {
         Geist: ["Geist", "sans-serif"],
         Gilroy: ["Gilroy", "sans-serif"],
         Aeonik: ["Aeonik", "sans-serif"],
+        Quicksand: ["Quicksand", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",

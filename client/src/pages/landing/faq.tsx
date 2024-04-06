@@ -7,7 +7,7 @@ import {
 
 export default function FAQ() {
   return (
-    <div className="py-20">
+    <section id="faq" className="py-20">
       <p className="text-center font-Aeonik text-6xl">
         Frequently Asked Questions
       </p>
@@ -35,6 +35,6 @@ export default function FAQ() {
           </AccordionItem>
         </Accordion>
       </div>
-    </div>
+    </section>
   );
 }

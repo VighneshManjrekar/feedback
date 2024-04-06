@@ -2,7 +2,7 @@ import jobAppFeatures from "./feat";
 
 export default function Features() {
   return (
-    <div className="w-full bg-zinc-50 border">
+    <section id="features" className="w-full bg-[#FAFAFA] border border-[#f4f4f4]">
       <div className="px-4 md:px-28 py-16">
         <div className="font-Aeonik text-center">
           <p className="text-sm md:text-xl">Everything at glance</p>
@@ -49,6 +49,6 @@ export default function Features() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

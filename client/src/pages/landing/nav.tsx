@@ -14,13 +14,13 @@ export default function HomeNav() {
           <div className="space-x-4 items-center hidden md:flex">
             <div className="flex justify-center align-middle p-1 rounded-full border border-[#ececec] bg-clip-padding bg-opacity-50 backdrop-filter backdrop-blur-sm">
               <div className="hover:bg-zinc-100 text-center py-3 w-32 rounded-full text-sm">
-                <Link to="#">Features</Link>
+                <a href="#features">Features</a>
               </div>
               <div className="hover:bg-zinc-100 text-center py-3 w-32 rounded-full text-sm">
                 <Link to="#">How it Works</Link>
               </div>
               <div className="hover:bg-zinc-100 text-center py-3 w-32 rounded-full text-sm">
-                <Link to="#">FAQ</Link>
+                <a href="#faq">FAQ</a>{" "}
               </div>
             </div>
 

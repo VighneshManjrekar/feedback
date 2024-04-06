@@ -1,7 +1,9 @@
 import FAQ from "./faq";
 import Features from "./features";
+import Footer from "./footer";
 import Home from "./home";
 import HomeNav from "./nav";
+import Testimonies from "./testomonies";
 
 export default function homepage() {
   return (
@@ -9,7 +11,9 @@ export default function homepage() {
       <HomeNav />
       <Home />
       <Features />
-      <FAQ/>
+      <FAQ />
+      <Testimonies/>
+      <Footer/>
     </div>
   );
 }
