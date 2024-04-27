@@ -1,7 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 
 import {
   Form,
@@ -18,9 +18,9 @@ import {
   PlusCircledIcon,
 } from "@radix-ui/react-icons";
 
-import { useState } from "react";
-import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
 import { ProjectForm } from "../types/resume";
 
 const formSchema = z.object({
@@ -34,7 +34,6 @@ const formSchema = z.object({
   link3: z.string().optional(),
   projectDescription3: z.string().optional(),
 });
-
 
 type FormData = z.infer<typeof formSchema>;
 

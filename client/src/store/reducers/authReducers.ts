@@ -1,8 +1,8 @@
 import {
-  SET_TOKEN,
   REMOVE_TOKEN,
   SET_ID,
   SET_ROLE,
+  SET_TOKEN,
 } from "../actions/authAction";
 
 interface InitialState {

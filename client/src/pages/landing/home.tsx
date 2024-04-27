@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "@radix-ui/react-icons";
-import abstract from "../../assets/abstract.svg";
 import { Link } from "react-router-dom";
+import abstract from "../../assets/abstract.svg";
 export default function Home() {
   return (
     <div className="container">

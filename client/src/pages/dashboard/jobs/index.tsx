@@ -7,8 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import ThemeSwitch from "../theme-switch";
 import { UserNav } from "../sidebar/user-nav";
+import ThemeSwitch from "../theme-switch";
 
 import { formatDistanceToNow } from "date-fns";
 
@@ -25,33 +25,31 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import getJobs, { Job } from "./api";
-import { useEffect, useState } from "react";
-import DetailedJobView from "./detail";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
-  Cross1Icon,
   CrossCircledIcon,
   ReloadIcon,
 } from "@radix-ui/react-icons";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import {
   IconArrowsSort,
+  IconCalendarDown,
   IconCalendarUp,
   IconFilter,
 } from "@tabler/icons-react";
-import { IconCalendarDown } from "@tabler/icons-react";
+import { useEffect, useState } from "react";
+import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
+import getJobs, { Job } from "./api";
+import DetailedJobView from "./detail";
 
 export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);

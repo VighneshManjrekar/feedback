@@ -21,5 +21,4 @@ const profileReducer = (state = initialState, action: any) => {
   }
 };
 
-
 export default profileReducer;

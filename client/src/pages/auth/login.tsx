@@ -8,22 +8,21 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { TokensIcon } from "@radix-ui/react-icons";
 import { Input } from "../../components/ui/input";
 //router
 import { Link, useNavigate } from "react-router-dom";
 //form
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 //data-fetch
-import { useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
-import { login } from "./api";
-import { useDispatch } from "react-redux";
-import { responseData } from "@/types/auth";
+import { useToast } from "@/components/ui/use-toast";
 import { setId, setRole, setToken } from "@/store/actions/authAction";
+import { responseData } from "@/types/auth";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { login } from "./api";
 import logo from "/logo.svg";
 
 import background from "../../assets/frame.png";

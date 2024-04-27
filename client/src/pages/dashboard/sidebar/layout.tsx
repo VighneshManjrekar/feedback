@@ -1,7 +1,7 @@
-import { Navigate, Outlet } from "react-router-dom";
-import Sidebar from "./sidebar";
 import useIsCollapsed from "@/hooks/use-is-collapsed";
 import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
+import Sidebar from "./sidebar";
 
 export default function DashboardLayout() {
   const token = useSelector((state: any) => state.auth.token);

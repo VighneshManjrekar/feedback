@@ -4,7 +4,6 @@ import { DataTableColumnHeader } from "./data-table-column-header";
 
 import { statuses } from "../data/data";
 import { Task } from "../data/schema";
-import { Checkbox } from "@/components/ui/checkbox";
 
 export const columns: ColumnDef<Task>[] = [
   {

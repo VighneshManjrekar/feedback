@@ -7,15 +7,15 @@ import {
 } from "../ui/card";
 import { Tabs, TabsContent } from "../ui/tabs";
 
-import ThemeSwitch from "../theme-switch";
 import { UserNav } from "../sidebar/user-nav";
+import ThemeSwitch from "../theme-switch";
 
-import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
+import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 
 export type Application = {
   _id: string;

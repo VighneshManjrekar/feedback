@@ -1,7 +1,7 @@
+import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
 
 import {
   Form,
@@ -18,10 +18,10 @@ import {
   PlusCircledIcon,
 } from "@radix-ui/react-icons";
 
-import { useState } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
+import { useState } from "react";
 import { ExperienceForm } from "../types/resume";
 
 const formSchema = z.object({

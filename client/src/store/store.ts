@@ -1,8 +1,8 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { persistReducer, persistStore } from "redux-persist";
+import storage from "redux-persist/es/storage";
 import authReducer from "./reducers/authReducers";
 import profileReducer from "./reducers/profileReucer";
-import { persistStore, persistReducer } from "redux-persist";
-import storage from "redux-persist/es/storage";
 
 // export const store = configureStore({
 //   reducer: {

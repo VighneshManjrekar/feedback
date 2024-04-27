@@ -1,6 +1,6 @@
+import { responseData } from "@/types/auth";
 import axios, { AxiosResponse } from "axios";
 import { z } from "zod";
-import { responseData } from "@/types/auth";
 import { loginSchema } from "./login";
 import { resSchema } from "./register";
 

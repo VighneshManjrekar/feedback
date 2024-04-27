@@ -24,5 +24,4 @@ export const tasks = [
     company: "GHI Solutions",
     status: "seen",
   },
-  
 ];

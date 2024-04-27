@@ -1,13 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import { store, persistor } from "./store/store.ts";
 import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
 import { RouterProvider } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
+import { Toaster } from "./components/ui/toaster.tsx";
+import "./index.css";
 import { ThemeProvider } from "./pages/dashboard/theme-provider.tsx";
 import router from "./router.tsx";
-import { Toaster } from "./components/ui/toaster.tsx";
+import { persistor, store } from "./store/store.ts";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

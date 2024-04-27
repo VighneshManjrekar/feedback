@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import logo from "/logo.svg";
 import { Button } from "@/components/ui/button";
 import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+import { Link } from "react-router-dom";
+import logo from "/logo.svg";
 
 export default function HomeNav() {
   return (

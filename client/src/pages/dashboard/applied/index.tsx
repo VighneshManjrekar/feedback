@@ -1,12 +1,12 @@
-import ThemeSwitch from "../theme-switch";
-import { UserNav } from "../sidebar/user-nav";
-import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
-import { DataTable } from "./components/data-table";
-import { columns } from "./components/columns";
-import { useSelector } from "react-redux";
+import { ReloadIcon } from "@radix-ui/react-icons";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import { ReloadIcon } from "@radix-ui/react-icons";
+import { useSelector } from "react-redux";
+import { UserNav } from "../sidebar/user-nav";
+import ThemeSwitch from "../theme-switch";
+import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
+import { columns } from "./components/columns";
+import { DataTable } from "./components/data-table";
 
 export default function AppliedJobs() {
   const token = useSelector((state: any) => state.auth.token);
@@ -28,7 +28,7 @@ export default function AppliedJobs() {
           },
         }
       );
-      console.log(response.data)
+      console.log(response.data);
 
       const applications = response.data.applications;
 

@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { Job } from "./api";
 
-import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
+  CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
-  CardContent,
 } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
-import { format } from "date-fns";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import axios, { AxiosResponse } from "axios";
-import { ReloadIcon } from "@radix-ui/react-icons";
 import { useToast } from "@/components/ui/use-toast";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import axios, { AxiosResponse } from "axios";
+import { format } from "date-fns";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 interface DetailedJobViewProps {
   job: Job;

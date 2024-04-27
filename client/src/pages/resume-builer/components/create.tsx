@@ -1,23 +1,23 @@
-import Education from "./Education";
-import Project from "./Project";
-import Experience from "./Experience";
-import Skills from "./Skills";
-import PersonalDetails from "./PersonalDetails";
 import { Progress } from "@/components/ui/progress";
+import { setResume } from "@/store/actions/profileAction";
+import { ReloadIcon } from "@radix-ui/react-icons";
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { responseData } from "../types/api";
 import {
+  EducationForm,
+  ExperienceForm,
   PersonalDetailsForm,
   ProjectForm,
   SkillsForm,
-  EducationForm,
-  ExperienceForm,
 } from "../types/resume";
-import axios from "axios";
-import { ReloadIcon } from "@radix-ui/react-icons";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setResume } from "@/store/actions/profileAction";
-import { responseData } from "../types/api";
+import Education from "./Education";
+import Experience from "./Experience";
+import PersonalDetails from "./PersonalDetails";
+import Project from "./Project";
+import Skills from "./Skills";
 
 const CreateResume = () => {
   const [currentStep, setCurrentStep] = useState<any>(1);

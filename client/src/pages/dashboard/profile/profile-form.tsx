@@ -1,13 +1,11 @@
-import { toast } from "../ui/use-toast";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
-import { Badge } from "../ui/badge";
-import axios, { AxiosResponse } from "axios";
-import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
 import { PersonIcon } from "@radix-ui/react-icons";
+import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Badge } from "../ui/badge";
 
 export default function ProfileForm() {
   const token = useSelector((state: any) => state.auth.token);

@@ -1,4 +1,4 @@
-import { Button } from "../../components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -7,16 +7,16 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "../../components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { Checkbox } from "@/components/ui/checkbox";
-import { TokensIcon } from "@radix-ui/react-icons";
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { setId, setRole, setToken } from "@/store/actions/authAction";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { TokensIcon } from "@radix-ui/react-icons";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { z } from "zod";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
 
 import background from "../../assets/frame.png";
 
@@ -232,7 +232,7 @@ const Register = () => {
                         className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                       >
                         Show Password
-                      </label> 
+                      </label>
                     </div>
                   </div>
 

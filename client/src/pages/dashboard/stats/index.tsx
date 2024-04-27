@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import SeekerDashboard from "./seeker";
 import EmpDashboard from "./emp";
+import SeekerDashboard from "./seeker";
 
 export default function Dashboard() {
   const role = useSelector((state: any) => state.auth.role);

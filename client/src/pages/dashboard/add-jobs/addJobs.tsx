@@ -1,12 +1,13 @@
-import ThemeSwitch from "../theme-switch";
 import { UserNav } from "../sidebar/user-nav";
+import ThemeSwitch from "../theme-switch";
 
-import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
+import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Button } from "@/components/ui/button";
+import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 
+import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
@@ -21,16 +22,15 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { Calendar } from "@/components/ui/calendar";
-import { format } from "date-fns";
-import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
-import { Job } from "../jobs/api";
+import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
+import { CalendarIcon } from "@radix-ui/react-icons";
 import axios, { AxiosResponse } from "axios";
+import { format } from "date-fns";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
+import { Job } from "../jobs/api";
 
 const formSchema = z.object({
   title: z.string().min(1).max(100),

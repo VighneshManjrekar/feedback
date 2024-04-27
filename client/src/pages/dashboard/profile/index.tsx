@@ -1,6 +1,6 @@
-import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 import { UserNav } from "../sidebar/user-nav";
 import ThemeSwitch from "../theme-switch";
+import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 import ProfileForm from "./profile-form";
 
 export default function SettingsProfile() {

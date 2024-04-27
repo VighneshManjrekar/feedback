@@ -12,8 +12,8 @@ export default function homepage() {
       <Home />
       <Features />
       <FAQ />
-      <Testimonies/>
-      <Footer/>
+      <Testimonies />
+      <Footer />
     </div>
   );
 }

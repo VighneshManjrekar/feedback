@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
-import { Layout, LayoutHeader } from "../ui/layout";
-import { Button } from "../ui/button";
-import Nav from "./nav";
 import { cn } from "@/lib/utils";
-import { sidelinks } from "./data";
 import { DoubleArrowRightIcon } from "@radix-ui/react-icons";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../ui/button";
+import { Layout, LayoutHeader } from "../ui/layout";
+import { sidelinks } from "./data";
+import Nav from "./nav";
 import logo from "/logo.svg";
 
 interface SidebarProps extends React.HTMLAttributes<HTMLElement> {

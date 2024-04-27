@@ -2,7 +2,10 @@ import jobAppFeatures from "./feat";
 
 export default function Features() {
   return (
-    <section id="features" className="w-full bg-[#FAFAFA] border border-[#f4f4f4]">
+    <section
+      id="features"
+      className="w-full bg-[#FAFAFA] border border-[#f4f4f4]"
+    >
       <div className="px-4 md:px-28 py-16">
         <div className="font-Aeonik text-center">
           <p className="text-sm md:text-xl">Everything at glance</p>
@@ -31,10 +34,16 @@ export default function Features() {
                 className="col-span-2 md:col-span-4 flex flex-col py-6 px-6 rounded-md md:py-20 md:px-10 md:rounded-[40px]"
               >
                 <div>
-                  <feature.icon color={feature.titleColor} className="p-1 md:p-0"/>
+                  <feature.icon
+                    color={feature.titleColor}
+                    className="p-1 md:p-0"
+                  />
                 </div>
                 <div className="md:pt-10 space-y-2">
-                  <h1 style={{ color: feature.titleColor }} className="text-[12px] md:text-xl">
+                  <h1
+                    style={{ color: feature.titleColor }}
+                    className="text-[12px] md:text-xl"
+                  >
                     {feature.title}
                   </h1>
                   <p

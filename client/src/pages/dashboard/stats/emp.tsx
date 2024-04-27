@@ -6,15 +6,15 @@ import {
   CardTitle,
 } from "../../../components/ui/card";
 
-import ThemeSwitch from "../theme-switch";
 import { UserNav } from "../sidebar/user-nav";
+import ThemeSwitch from "../theme-switch";
 
 import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 
-import { Overview } from "./components/overview";
-import { useSelector } from "react-redux";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Overview } from "./components/overview";
 
 export default function EmpDashboard() {
   const token = useSelector((state: any) => state.auth.token);

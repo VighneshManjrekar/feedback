@@ -51,4 +51,3 @@ export type ExperienceForm = {
   duration2?: string;
   experienceDescription2?: string;
 };
-

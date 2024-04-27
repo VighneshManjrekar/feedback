@@ -1,8 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios, { AxiosResponse } from "axios";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,6 +10,10 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import axios, { AxiosResponse } from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export function UserNav() {
   const navigate = useNavigate();
