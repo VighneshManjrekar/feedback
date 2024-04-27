@@ -8,7 +8,6 @@ export default function DashboardLayout() {
   if (!token) {
     return <Navigate to="/login" />;
   }
-
   const [isCollapsed, setIsCollapsed] = useIsCollapsed();
   return (
     <div className="relative h-full overflow-hidden bg-background font-Geist">
