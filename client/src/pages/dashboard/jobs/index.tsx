@@ -15,12 +15,21 @@ import { formatDistanceToNow } from "date-fns";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -31,6 +40,7 @@ import DetailedJobView from "./detail";
 import {
   ArrowDownIcon,
   ArrowUpIcon,
+  Cross1Icon,
   CrossCircledIcon,
   ReloadIcon,
 } from "@radix-ui/react-icons";
@@ -47,6 +57,24 @@ export default function Jobs() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [selectedJob, setSelectedJob] = useState<Job | null>();
   const [val, setVal] = useState<string>("");
+  const [location, setLocation] = useState("");
+  const [locations, setLocations] = useState([]);
+  const [minSalary, setMinSalary] = useState("");
+  const [maxSalary, setMaxSalary] = useState("");
+
+  const handleAddLocation = () => {
+    if (location.trim() !== "") {
+      setLocations([...locations, location.trim()]);
+      setLocation("");
+    }
+  };
+
+  const handleRemoveLocation = (index) => {
+    const updatedLocations = [...locations];
+    updatedLocations.splice(index, 1);
+    setLocations(updatedLocations);
+    fetchData();
+  };
 
   const handleJobClick = (job: Job) => {
     setSelectedJob(job);
@@ -56,6 +84,7 @@ export default function Jobs() {
     try {
       const jobs = await getJobs();
       setJobs(jobs);
+      console.log(jobs);
       // if (jobs.length > 0) {
       //   setSelectedJob(jobs[0]);
       // }
@@ -121,6 +150,28 @@ export default function Jobs() {
     }
   };
 
+  const handleFilter = () => {
+    let filteredJobs = jobs;
+
+    if (locations.length > 0) {
+      filteredJobs = filteredJobs.filter((job) =>
+        locations.includes(job.location)
+      );
+    }
+
+    if (minSalary !== "" && maxSalary !== "") {
+      filteredJobs = filteredJobs.filter((job) => {
+        const salary = parseFloat(job.salary.replace(/[^0-9.-]+/g, ""));
+        return (
+          salary >= parseFloat(minSalary) && salary <= parseFloat(maxSalary)
+        );
+      });
+    }
+
+    // Update the state with filtered jobs
+    setJobs(filteredJobs);
+  };
+
   return (
     <Layout className="">
       {/* ===== Top Heading ===== */}
@@ -150,6 +201,7 @@ export default function Jobs() {
           <div className="p-3 rounded-md flex gap-2">
             <div className="flex gap-2 w-5/6">
               <Input
+                className="rounded-sm"
                 type="email"
                 placeholder="Search by Title"
                 onChange={(e) => handleChange(e.target.value)}
@@ -157,16 +209,85 @@ export default function Jobs() {
             </div>
 
             <div>
-              <Button className="gap-2 bg-purple-500 hover:bg-purple-600">
-                Filter
-                <IconFilter size={15} />
-              </Button>
+              <Dialog>
+                <DialogTrigger>
+                  <Button className="gap-2 bg-purple-500 hover:bg-purple-600 dark:text-white">
+                    Filter
+                    <IconFilter size={15} />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="font-Geist">
+                  <DialogHeader>
+                    <DialogTitle>Filter</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-5">
+                    <div className="space-y-2">
+                      <p>Salary</p>
+                      <div className="flex gap-4 justify-center items-center">
+                        <Input
+                          className="rounded-sm"
+                          type="number"
+                          value={minSalary}
+                          onChange={(e) => setMinSalary(e.target.value)}
+                        />
+                        <p>to</p>
+                        <Input
+                          className="rounded-sm"
+                          type="number"
+                          value={maxSalary}
+                          onChange={(e) => setMaxSalary(e.target.value)}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <p>Location</p>
+                      <div className="flex gap-4 justify-center items-center">
+                        <Input
+                          className="rounded-sm"
+                          type="text"
+                          value={location}
+                          onChange={(e) => setLocation(e.target.value)}
+                        />
+                        <Button
+                          className="dark:text-white bg-indigo-700 hover:bg-indigo-800"
+                          onClick={handleAddLocation}
+                        >
+                          Add
+                        </Button>
+                      </div>
+                      <div className="space-x-2">
+                        {locations.map((loc, index) => (
+                          <Badge
+                            key={index}
+                            className="border px-2 py-1 gap-1 rounded-sm dark:text-white bg-slate-600 hover:bg-slate-700"
+                          >
+                            <p>{loc}</p>
+                            <CrossCircledIcon
+                              onClick={() => handleRemoveLocation(index)}
+                              className="cursor-pointer"
+                            />
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                    <DialogClose asChild>
+                      <Button
+                        className="gap-2 bg-purple-500 hover:bg-purple-600 dark:text-white"
+                        onClick={handleFilter}
+                      >
+                        Apply Filter
+                      </Button>
+                    </DialogClose>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
 
             <div>
               <DropdownMenu>
                 <DropdownMenuTrigger>
-                  <Button className="gap-2 bg-teal-500 hover:bg-teal-600">
+                  <Button className="gap-2 bg-teal-500 hover:bg-teal-600 dark:text-white">
                     Sort
                     <IconArrowsSort size={15} />
                   </Button>
@@ -211,21 +332,35 @@ export default function Jobs() {
             </div>
           </div>
 
-          <div className="px-4">
+          <div className="px-4 space-x-4">
             {val !== "" ? (
-              <Badge className="bg-teal-600 hover:bg-teal-600 gap-2 dark:text-white px-1 pr-2">
-                <CrossCircledIcon
-                  className="cursor-pointer"
-                  onClick={handleRemoveSort}
-                />
+              <Badge className="bg-teal-600 hover:bg-teal-600 gap-2 dark:text-white px-2 py-1 gap-1">
                 {val === "cal-up" && "Date Added (Oldest)"}
                 {val === "cal-down" && "Date Added (Recent)"}
                 {val === "salary-up" && "Salary (Ascending)"}
                 {val === "salary-down" && "Salary (Descending)"}
+
+                <CrossCircledIcon
+                  className="cursor-pointer"
+                  onClick={handleRemoveSort}
+                />
               </Badge>
             ) : (
               <></>
             )}
+
+            {locations.map((loc, index) => (
+              <Badge
+                key={index}
+                className="px-2 py-1 gap-1 rounded-sm dark:text-white bg-purple-600 hover:bg-purple-700"
+              >
+                <p>{loc}</p>
+                <CrossCircledIcon
+                  onClick={() => handleRemoveLocation(index)}
+                  className="cursor-pointer"
+                />
+              </Badge>
+            ))}
           </div>
         </div>
 

@@ -94,7 +94,7 @@ const DetailedJobView: React.FC<DetailedJobViewProps> = ({ job }) => {
           <Separator />
           <div className="my-4 gap-2 flex items-center">
             <Button
-              className="w-1/2 hover:bg-sky-500 hover:text-white"
+              className="w-1/2 hover:text-white dark:text-white"
               onClick={() => handleApply(job._id)}
             >
               {loading ? <ReloadIcon className="animate-spin" /> : <p>Apply</p>}
