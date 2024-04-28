@@ -1,5 +1,6 @@
 import {
   BackpackIcon,
+  ChatBubbleIcon,
   LayersIcon,
   PersonIcon,
   TokensIcon,
@@ -39,6 +40,13 @@ export const sidelinks: SideLink[] = [
     label: "",
     href: "/dashboard/applied",
     icon: <LayersIcon />,
+  },
+  {
+    role: "seeker",
+    title: "Roadmap",
+    label: "",
+    href: "/dashboard/roadmap",
+    icon: <ChatBubbleIcon />,
   },
   {
     role: "",

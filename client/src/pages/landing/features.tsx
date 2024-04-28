@@ -1,6 +1,25 @@
+import { motion, useAnimation, useInView } from "framer-motion";
+import { useEffect, useRef } from "react";
 import jobAppFeatures from "./feat";
 
 export default function Features() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0 });
+  const control = useAnimation();
+
+  const boxVariant = {
+    visible: { opacity: 1, scale: 1, transition: { duration: 0.5 } },
+    hidden: { opacity: 0, scale: 0 },
+  };
+
+  useEffect(() => {
+    if (isInView) {
+      control.start("visible");
+    } else {
+      control.start("hidden");
+    }
+  }, [control, isInView]);
+
   return (
     <section
       id="features"
@@ -13,7 +32,10 @@ export default function Features() {
         </div>
 
         <div className="py-10 md:px-32">
-          <div className="grid grid-cols-4 md:grid-cols-12 gap-4 md:gap-8 py-10">
+          <div
+            className="grid grid-cols-4 md:grid-cols-12 gap-4 md:gap-8 py-10"
+            ref={ref}
+          >
             {/* <div className="col-span-4 flex flex-col bg-[#74C69D] py-20 px-10 w-11/12 rounded-[40px]">
               <div>
                 <img src={eye} />
@@ -28,7 +50,10 @@ export default function Features() {
             </div> */}
 
             {jobAppFeatures.map((feature, index) => (
-              <div
+              <motion.div
+                variants={boxVariant}
+                initial="hidden"
+                animate={control}
                 key={index}
                 style={{ backgroundColor: feature.bgColor }}
                 className="col-span-2 md:col-span-4 flex flex-col py-6 px-6 rounded-md md:py-20 md:px-10 md:rounded-[40px]"
@@ -53,7 +78,7 @@ export default function Features() {
                     {feature.description}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

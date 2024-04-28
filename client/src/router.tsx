@@ -35,6 +35,12 @@ const router = createBrowserRouter([
         }),
       },
       {
+        path: "roadmap",
+        lazy: async () => ({
+          Component: (await import("./pages/dashboard/roadmap/index")).default,
+        }),
+      },
+      {
         path: "profiles",
         lazy: async () => ({
           Component: (await import("./pages/dashboard/profile/index")).default,
