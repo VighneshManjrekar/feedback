@@ -30,7 +30,7 @@ export default function AppliedJobs() {
       );
       console.log(response.data);
 
-      const applications = response.data.applications
+      const applications = response.data.applications;
 
       const formattedApplications = applications.map((application: any) => ({
         title: application.job.title,
@@ -38,7 +38,7 @@ export default function AppliedJobs() {
         status: application.status,
       }));
 
-      console.log("formated: ",formattedApplications)
+      console.log("formated: ", formattedApplications);
 
       setApplications(formattedApplications);
     } catch (error) {

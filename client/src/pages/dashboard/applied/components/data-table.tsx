@@ -23,8 +23,6 @@ import {
   TableRow,
 } from "../../ui/table";
 
-import { DataTablePagination } from "../components/data-table-pagination";
-
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -117,7 +115,6 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
     </div>
   );
 }
