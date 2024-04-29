@@ -23,7 +23,7 @@ app.use("/api/v1/job", jobRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {
-  process.stdout.write(clc.reset);
+  // process.stdout.write(clc.reset);
   console.log(clc.bgGreenBright.white(`Server running on ${PORT}`));
   connectDB();
 });

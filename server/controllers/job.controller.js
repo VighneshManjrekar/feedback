@@ -63,12 +63,16 @@ exports.applyJob = asyncHandler(async (req, res, next) => {
 
   const response = await generateText(job);
 
+  const mailContent = JSON.parse(response).mail;
+
   const application = new Application({
     user: user._id,
     job: req.params.id,
-    message: response,
+    message: mailContent,
   });
-  await sendApplication(response, job, req.user, application);
+  console.log(JSON.parse(response).mail);
+
+  await sendApplication(mailContent, job, req.user, application);
   await application.save();
 
   res.status(200).json({ success: true, application });
@@ -110,8 +114,10 @@ exports.getMyApplications = asyncHandler(async (req, res, next) => {
   const stat = [];
   // const jobs = await Job.find({ postedBy: req.user._id });
   // const jobId = jobs.map((job) => job._id);
-  const applications = await Application.find({
-  }).populate("job user", "title company name email salary createdAt");
+  const applications = await Application.find({}).populate(
+    "job user",
+    "title company name email salary createdAt"
+  );
 
   applications.forEach((app) => {
     const { title, company, salary, _id } = app.job;

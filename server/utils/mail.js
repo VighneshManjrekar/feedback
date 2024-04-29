@@ -30,49 +30,50 @@ const transporter = nodemailer.createTransport({
 //   }
 // };
 
-exports.sendApplication = async (response, job, user, application) => {
+exports.sendApplication = async (mail, job, user, application) => {
   const encodedLink = Buffer.from(
     `${process.env.SERVER_URL}/api/v1/job/applications/${application._id}`
   ).toString("base64");
 
   const html = `
-  <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Job Application</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    .signature {
-      margin-top: 20px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <p>Respected Sir/Madam,</p>
-    <p>${response}</p>
-    <p>Attaching my resume with this email. I am eagerly anticipating hearing back from ${job.company}.</p>
-    <p>Thank you.</p>
-    <div class="signature">
-      <p>Best regards,</p>
-      <p>${user.name},</p>
-      <p>${user.email}</p>
+    <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .signature {
+        margin-top: 20px;
+      }
+      p{
+        margin-bottom:0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>Respected Sir/Madam,</p>
+      <p>${mail.content}</p>
+      <div class="signature">
+        <p>Best regards,</p>
+        <p>${user.name},</p>
+        <p>${user.email}</p>
+      </div>
+      <img src="${process.env.SERVER_URL}/api/v1/job/applications/${application._id}/seen?tracking=${encodedLink}" width="1" height="1" alt="tracking pixel" style="display: none;">
     </div>
-    <img src="${process.env.SERVER_URL}/api/v1/job/applications/${application._id}/seen?tracking=${encodedLink}" width="1" height="1" alt="tracking pixel" style="display: none;">
-  </div>
-</body>
-</html>`;
-  const subject = `Application for ${job.title} at ${job.company}.`;
+  </body>
+  </html>`;
+  const subject = `${mail.subject}`;
   const message = {
     from: `${user.name} <${user.email}>`,
     to: job.postedBy.email,
