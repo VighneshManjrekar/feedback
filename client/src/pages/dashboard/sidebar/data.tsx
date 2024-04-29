@@ -23,14 +23,14 @@ export const sidelinks: SideLink[] = [
   {
     role: "",
     title: "Dashboard",
-    label: "3",
+    // label: "3",
     href: "/dashboard",
     icon: <TokensIcon />,
   },
   {
     role: "seeker",
     title: "Jobs",
-    label: "9",
+    // label: "9",
     href: "/dashboard/jobs",
     icon: <BackpackIcon />,
   },
