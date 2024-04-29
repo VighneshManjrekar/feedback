@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage";
 import authReducer from "./reducers/authReducers";
+import goalReducer from "./reducers/goalReducer";
 import profileReducer from "./reducers/profileReucer";
 
 // export const store = configureStore({
@@ -14,6 +15,7 @@ import profileReducer from "./reducers/profileReucer";
 const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
+  goals: goalReducer,
 });
 
 const persistConfig = {

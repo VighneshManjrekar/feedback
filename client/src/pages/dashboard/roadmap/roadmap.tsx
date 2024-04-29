@@ -1,5 +1,9 @@
-import { ClockIcon } from "@radix-ui/react-icons";
+import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
+import { saveSteps } from "@/store/actions/goalAction";
+import { ClockIcon, TargetIcon } from "@radix-ui/react-icons";
 import React from "react";
+import { useDispatch } from "react-redux";
 
 interface Step {
   step: string;
@@ -31,6 +35,19 @@ const RoadmapComponent: React.FC<Props> = ({ roadmapData }) => {
   }
 
   const { title, totalTime, steps } = roadmapData.stage[0];
+  const dispatch = useDispatch();
+
+  const addToGoal = () => {
+    if (roadmapData && roadmapData.stage.length > 0) {
+      const { steps } = roadmapData.stage[0];
+      dispatch(saveSteps(steps));
+      toast({
+        title: "Goal Added",
+        description: "You can modify the goal in Goals tab",
+        className: "font-Geist bg-green-500 text-white rounded-xl",
+      });
+    }
+  };
 
   return (
     <div>
@@ -42,6 +59,14 @@ const RoadmapComponent: React.FC<Props> = ({ roadmapData }) => {
           <ClockIcon className="w-5 h-5" />
           <p>{totalTime}</p>
         </div>
+        <Button
+          className="gap-2 p-3 hover:bg-black hover:text-white"
+          variant={"outline"}
+          onClick={addToGoal}
+        >
+          <TargetIcon />
+          Set as Goal
+        </Button>
       </div>
 
       <div className="font-Geist">

@@ -21,8 +21,10 @@ export interface RoadmapData {
 export default function index() {
   const [title, setTitle] = useState("");
   const [data, setData] = useState<RoadmapData | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleGenerateRoadmap = async () => {
+    setLoading(true);
     try {
       const response = await axios.post(
         "http://localhost:7000/api/v1/roadmap",
@@ -31,6 +33,7 @@ export default function index() {
         }
       );
 
+      setLoading(false);
       setTitle("");
       setData(response.data);
     } catch (error) {

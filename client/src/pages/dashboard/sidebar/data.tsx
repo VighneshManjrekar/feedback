@@ -3,6 +3,7 @@ import {
   ChatBubbleIcon,
   LayersIcon,
   PersonIcon,
+  TargetIcon,
   TokensIcon,
 } from "@radix-ui/react-icons";
 import { IconHexagonNumber1, IconHexagonNumber2 } from "@tabler/icons-react";
@@ -47,6 +48,13 @@ export const sidelinks: SideLink[] = [
     label: "",
     href: "/dashboard/roadmap",
     icon: <ChatBubbleIcon />,
+  },
+  {
+    role: "seeker",
+    title: "Goals",
+    label: "",
+    href: "/dashboard/goals",
+    icon: <TargetIcon />,
   },
   {
     role: "",
