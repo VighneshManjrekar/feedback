@@ -4,7 +4,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPEN_AI,
 });
 
-const generateText = async (job) => {
+exports.generateText = async (job) => {
   const content = `Generate brief 200 tokens email message to express interest for ${job.title} position at ${job.company}. Response should be  in the following JSON format: 
   {
     "mail": {
@@ -33,4 +33,38 @@ const generateText = async (job) => {
   // };
 };
 
-module.exports = generateText;
+exports.generateRoadmap = async (title) => {
+  const query = `
+  First find for is ${title} is a real job title if it is a real job,
+  prepare 7 stage roadmap for fresher starting a career as ${title}
+  Response should be  in the following JSON format:
+  {
+    "stages":{
+      "title" : "some fancy title",
+      "totalTime":"time required to complete the roadmap",
+      "steps":[{step: "Step details", time: "time to dedicate for the current stage"}]
+    }
+  }
+  if it isn't a real job or there isn't any roadmap you can find return {"stages":null} with no extra characters`;
+  try {
+    const response = await openai.chat.completions.create({
+      messages: [
+        {
+          role: "system",
+          content: "you are a career guide",
+        },
+        { role: "user", content: query },
+      ],
+      model: "gpt-3.5-turbo",
+      temperature: 0,
+    });
+    const roadmap = JSON.parse(response.choices[0].message.content);
+    if (!roadmap.stages) {
+      return null;
+    }
+    return { roadmap };
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

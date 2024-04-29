@@ -21,7 +21,7 @@ export default function AppliedJobs() {
   async function getJobs() {
     try {
       const response: AxiosResponse<{ applications: any[] }> = await axios.get(
-        "http://localhost:7000/api/v1/job/applications/seeeker/stat",
+        "http://localhost:7000/api/v1/job/applications/my-applications",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -30,13 +30,15 @@ export default function AppliedJobs() {
       );
       console.log(response.data);
 
-      const applications = response.data.applications;
+      const applications = response.data.applications
 
       const formattedApplications = applications.map((application: any) => ({
         title: application.job.title,
         company: application.job.company,
         status: application.status,
       }));
+
+      console.log("formated: ",formattedApplications)
 
       setApplications(formattedApplications);
     } catch (error) {

@@ -9,6 +9,7 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const userRouter = require("./routes/user.router");
 const jobRouter = require("./routes/job.router");
+const roadmapRouter = require("./routes/roadmap.router");
 const errorHandler = require("./middlewares/errorHandler");
 
 const app = express();
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/job", jobRouter);
+app.use("/api/v1/roadmap", roadmapRouter);
 app.use(errorHandler);
 
 app.listen(PORT, () => {

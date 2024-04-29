@@ -13,15 +13,15 @@ const {
   getMyApplications,
   applicationStats,
   employerStats,
-  seekerStats,
+  seekerStats,getMyAppliedJobApplications
 } = require("../controllers/job.controller");
 
 const { protect, authorization } = require("../middlewares/auth");
 
 // get logged in user application
 router.get("/applications", protect, getMyApplications);
+router.get("/applications/my-applications",protect,getMyAppliedJobApplications)
 router.get("/applications/seeker/stat", protect, seekerStats);
-
 router.get("/applications/stats", protect, applicationStats);
 router.get("/employer/stats", protect, employerStats);
 

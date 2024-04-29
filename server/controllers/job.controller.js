@@ -4,7 +4,7 @@ const User = require("../models/User");
 const { sendApplication, updateStatus } = require("../utils/mail");
 const asyncHandler = require("../utils/asyncHandler");
 const ErrorResponse = require("../utils/ErrorResponse");
-const generateText = require("../utils/openai");
+const {generateText} = require("../utils/openai");
 
 exports.postJob = asyncHandler(async (req, res, next) => {
   req.body.postedBy = req.user._id;
@@ -168,4 +168,14 @@ exports.employerStats = asyncHandler(async (req, res, next) => {
   const jobs = await Job.find({}).populate("postedBy");
   const applications = await Application.find({}).populate("user job");
   res.status(200).json({ success: true, jobs, applications });
+});
+
+exports.getMyAppliedJobApplications = asyncHandler(async (req, res, nect) => {
+  const applications = await Application.find({ user: req.user._id }).populate(
+    "job user"
+  );
+  res.status(200).json({
+    success: true,
+    applications,
+  });
 });
