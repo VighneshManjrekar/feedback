@@ -149,24 +149,44 @@ export default function Jobs() {
   };
 
   const handleFilter = () => {
+    setSelectedJob();
+
     let filteredJobs = jobs;
 
     if (locations.length > 0) {
-      filteredJobs = filteredJobs.filter((job) =>
-        locations.includes(job.location)
-      );
-    }
-
-    if (minSalary !== "" && maxSalary !== "") {
       filteredJobs = filteredJobs.filter((job) => {
-        const salary = parseFloat(job.salary.replace(/[^0-9.-]+/g, ""));
-        return (
-          salary >= parseFloat(minSalary) && salary <= parseFloat(maxSalary)
+        console.log("Job location:", job.location);
+        return locations.some((location) =>
+          job.location.toLowerCase().includes(location.toLowerCase())
         );
       });
     }
 
-    // Update the state with filtered jobs
+    if (minSalary !== "" && maxSalary !== "") {
+      filteredJobs = filteredJobs.filter((job) => {
+        const salaryValues = job.salary.match(/\d+(?:,\d+)*(?:\.\d+)?/g);
+
+        if (salaryValues && salaryValues.length >= 2) {
+          const minJobSalary = parseFloat(salaryValues[0].replace(/,/g, ""));
+          const maxJobSalary = parseFloat(salaryValues[1].replace(/,/g, ""));
+
+          // console.log("Minimum Job Salary:", minJobSalary);
+          // console.log("Maximum Job Salary:", maxJobSalary);
+          // console.log("Filtering Range:", minSalary, "-", maxSalary);
+
+          const included =
+            minJobSalary >= parseFloat(minSalary) &&
+            maxJobSalary <= parseFloat(maxSalary);
+          // console.log("Included:", included);
+
+          return included;
+        } else {
+          console.log("Unable to extract salary values for job:", job);
+          return false;
+        }
+      });
+    }
+
     setJobs(filteredJobs);
   };
 
@@ -359,6 +379,14 @@ export default function Jobs() {
                 />
               </Badge>
             ))}
+
+            {minSalary !== "" && maxSalary !== "" ? (
+              <Badge className="bg-teal-600 hover:bg-teal-600 gap-2 dark:text-white px-2 py-1 gap-1">
+                {"$" + minSalary + " - $" + maxSalary}
+              </Badge>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
 
