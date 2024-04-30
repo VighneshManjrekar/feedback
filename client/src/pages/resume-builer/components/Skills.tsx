@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { ChevronLeftIcon } from "@radix-ui/react-icons";
 
 import { Separator } from "@/components/ui/separator";
-import { SkillsForm } from "../types/resume";
+import { SkillsForm } from "./types/resume";
 
 const formSchema = z.object({
   skills: z.string().min(2).max(255),

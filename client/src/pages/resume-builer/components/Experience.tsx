@@ -22,7 +22,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { ExperienceForm } from "../types/resume";
+import { ExperienceForm } from "./types/resume";
 
 const formSchema = z.object({
   institute1: z.string().min(2).max(100),

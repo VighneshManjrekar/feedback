@@ -21,7 +21,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
-import { ProjectForm } from "../types/resume";
+import { ProjectForm } from "./types/resume";
 
 const formSchema = z.object({
   title1: z.string().min(2).max(200),

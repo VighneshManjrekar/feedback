@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { PersonalDetailsForm } from "../types/resume";
+import { PersonalDetailsForm } from "./types/resume";
 
 const formSchema = z.object({
   email: z.string().min(2, {

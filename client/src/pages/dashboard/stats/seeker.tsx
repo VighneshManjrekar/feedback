@@ -12,11 +12,11 @@ import ThemeSwitch from "../theme-switch";
 import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 
 import { Overview } from "./components/overview";
-import { RecentSales } from "./components/recent-sales";
 
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { RecentSales } from "./components/recent-sales";
 
 type jobs = {
   jobTitle: string;

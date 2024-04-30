@@ -16,7 +16,9 @@ export default function Index() {
     <div className="p-10">
       <h1 className="font-Geist text-xl font-semibold">Goals</h1>
       <div>
-        <p className="pt-2">3/7 Completed</p>
+        <p className="pt-2">
+          {goals.filter((goal) => goal.completed).length}/7 Completed
+        </p>
       </div>
       <ul className="py-4">
         {goals.map((goal, index) => (

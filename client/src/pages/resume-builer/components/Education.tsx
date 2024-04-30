@@ -16,7 +16,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 
 import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { EducationForm } from "../types/resume";
+import { EducationForm } from "./types/resume";
 
 const formSchema = z.object({
   college: z.string().min(2).max(200),

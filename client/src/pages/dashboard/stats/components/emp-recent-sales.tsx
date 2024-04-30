@@ -24,14 +24,16 @@ export const RecentSales: React.FC<Props> = ({ data }) => {
             <Avatar className="h-9 w-9">
               <AvatarImage src={`/avatars/${index + 1}.png`} alt="Avatar" />
               <AvatarFallback>
-                {job.jobTitle.slice(0, 2).toUpperCase()}
-              </AvatarFallback>
+                {job.job.title.slice(0, 2).toUpperCase()}
+              </AvatarFallback>{" "}
             </Avatar>
             <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">{job.jobTitle}</p>
-              <p className="text-sm text-muted-foreground">{job.jobCompany}</p>
+              <p className="text-sm font-medium leading-none">
+                {job.job.title}
+              </p>
+              <p className="text-sm text-muted-foreground">{job.job.company}</p>
             </div>
-            <Badge className="ml-auto font-medium">{job.jobSalary}</Badge>
+            <Badge className="ml-auto font-medium">{job.job.salary}</Badge>
           </div>
         ))}
     </div>

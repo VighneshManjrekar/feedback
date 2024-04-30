@@ -25,21 +25,18 @@ interface Props {
 }
 
 const RoadmapComponent: React.FC<Props> = ({ roadmapData }) => {
-  if (
-    !roadmapData ||
-    !roadmapData.stage.length ||
-    !roadmapData.stage[0].steps.length
-  ) {
-    // Handle case where data is not available or request was unsuccessful
-    return <div>No roadmap data available</div>;
+  console.log(roadmapData);
+
+  if (!roadmapData.success) {
+    return <div>No Roadmap for invalid title</div>;
   }
 
-  const { title, totalTime, steps } = roadmapData.stage[0];
+  const { title, totalTime, steps } = roadmapData.stages;
   const dispatch = useDispatch();
 
   const addToGoal = () => {
-    if (roadmapData && roadmapData.stage.length > 0) {
-      const { steps } = roadmapData.stage[0];
+    if (roadmapData) {
+      const { steps } = roadmapData.stages;
       dispatch(saveSteps(steps));
       toast({
         title: "Goal Added",

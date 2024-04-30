@@ -1,5 +1,5 @@
 import axios from "axios";
-import { responseData } from "../types/api";
+import { responseData } from "../components/types/api";
 
 export async function fetchId(token: string) {
   try {

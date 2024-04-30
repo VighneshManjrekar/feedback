@@ -11,7 +11,7 @@ exports.getRoadmap = asyncHandler(async (req, res, next) => {
   if (existingRoadmap?.length > 0) {
     return res.status(200).json({
       success: true,
-      stage: existingRoadmap,
+      stages: existingRoadmap[0],
     });
   }
   const response = await generateRoadmap(title);

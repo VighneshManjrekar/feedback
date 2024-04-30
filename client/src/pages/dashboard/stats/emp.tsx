@@ -14,6 +14,7 @@ import { Layout, LayoutBody, LayoutHeader } from "../ui/layout";
 import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { RecentSales } from "./components/emp-recent-sales";
 import { Overview } from "./components/overview";
 
 export default function EmpDashboard() {
@@ -29,6 +30,7 @@ export default function EmpDashboard() {
           },
         }
       );
+      console.log(response);
       setResponseData(response.data);
     } catch (error) {
       console.error("Error getting dashboard:", error);
@@ -118,7 +120,7 @@ export default function EmpDashboard() {
                   <CardTitle>Overview</CardTitle>
                 </CardHeader>
                 <CardContent className="pl-2">
-                  <Overview />
+                  <Overview role="employer" />
                 </CardContent>
               </Card>
               <Card className="col-span-1 lg:col-span-3">
@@ -129,7 +131,9 @@ export default function EmpDashboard() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  {/* {stats && <RecentSales data={stats} />} */}
+                  {responseData.applications && (
+                    <RecentSales data={responseData.applications} />
+                  )}
                 </CardContent>
               </Card>
             </div>

@@ -5,19 +5,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { responseData } from "../types/api";
+import Education from "./Education";
+import Experience from "./Experience";
+import PersonalDetails from "./PersonalDetails";
+import Project from "./Project";
+import Skills from "./Skills";
+import { responseData } from "./types/api";
 import {
   EducationForm,
   ExperienceForm,
   PersonalDetailsForm,
   ProjectForm,
   SkillsForm,
-} from "../types/resume";
-import Education from "./Education";
-import Experience from "./Experience";
-import PersonalDetails from "./PersonalDetails";
-import Project from "./Project";
-import Skills from "./Skills";
+} from "./types/resume";
 
 const CreateResume = () => {
   const [currentStep, setCurrentStep] = useState<any>(1);
