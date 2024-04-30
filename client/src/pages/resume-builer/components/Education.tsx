@@ -31,6 +31,19 @@ const formSchema = z.object({
   description2: z.string().min(1),
 });
 
+const defData = {
+  college: "Datta Meghe College Of Engineering",
+  fromyear1: "2018",
+  toyear1: "2022",
+  qualification1: "Bachelor's Degree",
+  description1: "Studied computer science and engineering.",
+  school: "XYZ School",
+  fromyear2: "2016",
+  toyear2: "2018",
+  qualification2: "Higher Secondary Certificate (HSC)",
+  description2: "Completed higher secondary education.",
+};
+
 type FormData = z.infer<typeof formSchema>;
 
 type Props = {
@@ -48,7 +61,7 @@ const Education: React.FC<Props> = ({
 }) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: formData,
+    defaultValues: defData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {

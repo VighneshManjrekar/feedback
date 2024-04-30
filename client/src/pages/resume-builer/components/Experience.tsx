@@ -35,6 +35,18 @@ const formSchema = z.object({
   experienceDescription2: z.string().optional(),
 });
 
+const defData = {
+  institute1: "ABC Company",
+  position1: "Software Engineer",
+  duration1: "2 Years",
+  experienceDescription1:
+    "Worked on various projects involving web development.",
+  institute2: "", // Optional field, leave empty if not required
+  position2: "", // Optional field, leave empty if not required
+  duration2: "", // Optional field, leave empty if not required
+  experienceDescription2: "", // Optional field, leave empty if not required
+};
+
 type FormData = z.infer<typeof formSchema>;
 
 type Props = {
@@ -52,7 +64,7 @@ const Experience: React.FC<Props> = ({
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: formData,
+    defaultValues: defData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {

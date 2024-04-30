@@ -43,6 +43,21 @@ const formSchema = z.object({
   link: z.string(),
 });
 
+const today = new Date();
+const nextMonth = new Date(today);
+nextMonth.setMonth(nextMonth.getMonth() + 1);
+
+const defData = {
+  title: "AI Developer",
+  company: "ABC Tech",
+  location: "New York, USA",
+  description: "Developing and maintaining software applications.",
+  responsibilities: "Designing, coding, testing, and debugging software.",
+  salary: "$80,000",
+  deadline: nextMonth,
+  link: "https://example.com/job-posting",
+};
+
 type FormData = z.infer<typeof formSchema>;
 
 export default function PostJobs() {
@@ -52,16 +67,7 @@ export default function PostJobs() {
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      company: "",
-      location: "",
-      description: "",
-      responsibilities: "",
-      salary: "",
-      deadline: new Date(),
-      link: "",
-    },
+    defaultValues: defData,
   });
   async function postJob(values: Job): Promise<AxiosResponse> {
     const { deadline, ...rest } = values;

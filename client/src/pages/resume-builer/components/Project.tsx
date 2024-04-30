@@ -37,6 +37,18 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
+const defData = {
+  title1: "Project Title 1",
+  link1: "https://example.com/project1",
+  projectDescription1: "Description of project 1.",
+  title2: "Project Title 2",
+  link2: "https://example.com/project1",
+  projectDescription2: "Description of project 1.",
+  title3: "Project Title 3",
+  link3: "https://example.com/project1",
+  projectDescription3: "Description of project 1.",
+};
+
 type Props = {
   nextStep: () => void;
   prevStep: () => void;
@@ -54,7 +66,7 @@ const Project: React.FC<Props> = ({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: formData,
+    defaultValues: defData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {

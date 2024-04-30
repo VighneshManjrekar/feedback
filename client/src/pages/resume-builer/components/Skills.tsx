@@ -27,6 +27,10 @@ const formSchema = z.object({
   instagram: z.string().optional(),
 });
 
+const defData = {
+  skills: "HTML,CSS,Python,CPP",
+};
+
 type FormData = z.infer<typeof formSchema>;
 
 type Props = {
@@ -46,7 +50,7 @@ const Skills: React.FC<Props> = ({
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: formData,
+    defaultValues: defData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {

@@ -1,53 +1,104 @@
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
-const data = [
+const seekerData = [
   {
     name: "Jan",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Feb",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Mar",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Apr",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 2,
   },
   {
     name: "May",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Jun",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Jul",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Aug",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Sep",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Oct",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Nov",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
   },
   {
     name: "Dec",
-    total: Math.floor(Math.random() * 10) + 4,
+    total: 0,
+  },
+];
+
+const empData = [
+  {
+    name: "Jan",
+    total: 0,
+  },
+  {
+    name: "Feb",
+    total: 0,
+  },
+  {
+    name: "Mar",
+    total: 2,
+  },
+  {
+    name: "Apr",
+    total: 13,
+  },
+  {
+    name: "May",
+    total: 0,
+  },
+  {
+    name: "Jun",
+    total: 0,
+  },
+  {
+    name: "Jul",
+    total: 0,
+  },
+  {
+    name: "Aug",
+    total: 0,
+  },
+  {
+    name: "Sep",
+    total: 0,
+  },
+  {
+    name: "Oct",
+    total: 0,
+  },
+  {
+    name: "Nov",
+    total: 0,
+  },
+  {
+    name: "Dec",
+    total: 0,
   },
 ];
 
@@ -59,7 +110,7 @@ export const Overview: React.FC<OverviewProps> = ({ role }) => {
   if (role === "seeker") {
     return (
       <ResponsiveContainer width="100%" height={350}>
-        <BarChart data={data}>
+        <BarChart data={seekerData}>
           <XAxis
             dataKey="name"
             stroke="#888888"
@@ -88,7 +139,7 @@ export const Overview: React.FC<OverviewProps> = ({ role }) => {
   if (role === "employer") {
     return (
       <ResponsiveContainer width="100%" height={350}>
-        <BarChart data={data}>
+        <BarChart data={empData}>
           <XAxis
             dataKey="name"
             stroke="#888888"

@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { PersonalDetailsForm } from "./types/resume";
+import { PersonalDetailsForm } from "../types/resume";
 
 const formSchema = z.object({
   email: z.string().min(2, {
@@ -33,6 +33,15 @@ type Props = {
 
 type FormData = z.infer<typeof formSchema>;
 
+const defData = {
+  email: "yrohan740@gmail.com",
+  fname: "Rohan",
+  lname: "Yadav",
+  website: "rohanny.me",
+  phone: "9665906736",
+  location: "Mumbai",
+};
+
 const PersonalDetails: React.FC<Props> = ({
   nextStep,
   formData,
@@ -40,7 +49,7 @@ const PersonalDetails: React.FC<Props> = ({
 }) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: formData,
+    defaultValues: defData,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -150,13 +159,15 @@ const PersonalDetails: React.FC<Props> = ({
             <ChevronLeftIcon />
             Back
           </Button>
-          <Button
-            type="submit"
-            className="rounded-xl flex justify-between gap-2"
-          >
-            Next
-            <ChevronRightIcon />
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              type="submit"
+              className="rounded-xl flex justify-between gap-2"
+            >
+              Next
+              <ChevronRightIcon />
+            </Button>
+          </div>
         </div>
       </form>
     </Form>
